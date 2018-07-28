@@ -129,5 +129,14 @@ public class PlayerController : MonoBehaviour {
         {
             anim.SetInteger("State", 0);
         }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            anim.SetInteger("State", 5);
+        }
+        else if (Input.GetMouseButtonUp(1))
+        {
+            anim.SetInteger("State", 0);
+        }
     }
 }
