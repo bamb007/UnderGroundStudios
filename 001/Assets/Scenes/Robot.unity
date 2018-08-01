@@ -227,7 +227,7 @@ GameObject:
   m_Layer: 0
   m_Name: GroundCheck
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -529,7 +529,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
-  speed: 3
+  speed: 5
+  runningSpeed: 6
   velX: 5
   velY: 5
   jumpHeight: 600
@@ -609,7 +610,7 @@ Transform:
   m_GameObject: {fileID: 1750618663}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.9402626, y: -2.3512871, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalScale: {x: 0.07, y: 0.07, z: 1}
   m_Children:
   - {fileID: 1180087252}
   - {fileID: 2091752161}
