@@ -10,8 +10,7 @@ public class OrbitAround : MonoBehaviour
 
     [Header("Status own")]
 
-    [SerializeField]
-    private bool orbitAroundOwn;
+    public bool orbitAroundOwn;
 
     [SerializeField]
     private bool orbitOverOwn;
@@ -40,8 +39,7 @@ public class OrbitAround : MonoBehaviour
 
     [Header("Variables to change orbit")]
 
-    [SerializeField]
-    private float speedOrbitOwn;
+    public float speedOrbitOwn;
 
     [SerializeField]
     private float speedOrbitOther;
