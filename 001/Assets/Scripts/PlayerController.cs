@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
     public Animator anim;
     [SerializeField]
     public float speed = 3f;
+    public float runningSpeed = 6f;
     public float velX;
     public float velY;
     bool facingRight = true;
@@ -64,6 +65,7 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.R))
         {
+            
             anim.SetInteger("State", 2);
         }
         else if (Input.GetKeyUp(KeyCode.R))
