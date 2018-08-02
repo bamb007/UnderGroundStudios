@@ -7,6 +7,9 @@ public class FireFly : MonoBehaviour {
     enum Aistates { Idle, Alert, Attack};
 
     #region Variables
+
+    private EnemyStats stats;
+
     [Header("Enemy State")]
     [SerializeField]
     private Aistates currentAIState;
@@ -48,25 +51,36 @@ public class FireFly : MonoBehaviour {
     private float orbitSpeed;
 
     [SerializeField]
-    private float minTime;
+    private float changeStateMinTime;
 
     [SerializeField]
-    private float maxTime;
+    private float changeStateMaxTime;
 
     [SerializeField]
-    private float attackTime;
+    private float changeToAttackTime;
 
     //Finds its own orbit script and fills in the blanks
     private OrbitAround orbitAround;
 
     [Header("Attack state")]
 
+    //Gameobject works but variables is made in projectile
     [SerializeField]
-    private GameObject projectileAttack;
+    private Projectile projectileAttack;
+
     [SerializeField]
     private float attackDelay;
 
     private float attackDelayUse;
+
+    [Header("Projectile stats")]
+
+    [SerializeField]
+    private float projectileSpeed;
+
+    [SerializeField]
+    private float destroyProjectile;
+
 
     #endregion
 
@@ -79,6 +93,9 @@ public class FireFly : MonoBehaviour {
 
         //Used to get and use orbit Script
         orbitAround = GetComponent<OrbitAround>();
+
+        //Used to get and use stats
+        stats = GetComponent<EnemyStats>();
 
         //AttackDelay in attack state
         attackDelayUse = attackDelay;
@@ -107,7 +124,7 @@ public class FireFly : MonoBehaviour {
             {
                 currentAIState = Aistates.Alert;
 
-                attackTime = Random.Range(minTime, maxTime);
+                changeToAttackTime = Random.Range(changeStateMinTime, changeStateMaxTime);
 
                 hSliderValueG = 0.0f;
                 hSliderValueB = 1.0f;
@@ -117,13 +134,13 @@ public class FireFly : MonoBehaviour {
         }
         else if (currentAIState == Aistates.Alert)
         {
-            attackTime -= Time.deltaTime;
+            changeToAttackTime -= Time.deltaTime;
 
             orbitAround.orbitAroundObject = target;
             orbitAround.speedOrbitOwn = orbitSpeed;
             orbitAround.orbitAroundOwn = true;
 
-            if (attackTime <= 0)
+            if (changeToAttackTime <= 0)
             {
                 currentAIState = Aistates.Attack;
 
@@ -147,8 +164,11 @@ public class FireFly : MonoBehaviour {
             attackDelayUse -= Time.deltaTime;
 
             if (attackDelayUse <= 0)
-            {
-                Instantiate(projectileAttack, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity);         
+            {                
+                var clone = Instantiate(projectileAttack, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity);
+                clone.projectileSpeed = projectileSpeed;
+                clone.destroyTime = destroyProjectile;
+                clone.damage = stats.damage;
 
                 attackDelayUse = attackDelay;
             }
