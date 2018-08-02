@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour {
     public float velX;
     public float velY;
     bool facingRight = true;
-    private Rigidbody2D rb2d;
+    public Rigidbody2D rb2d;
     public float jumpHeight;
     public Transform groundCheck;
     public float groundCheckRadius;

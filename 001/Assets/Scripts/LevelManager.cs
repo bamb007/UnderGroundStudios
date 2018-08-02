@@ -38,6 +38,7 @@ public class LevelManager : MonoBehaviour
         Instantiate(deathParticle, player.transform.position, player.transform.rotation);
         player.enabled = false;
         player.GetComponent<Renderer>().enabled = false;
+        player.rb2d.gravityScale = 0f;
         Debug.Log("Player Respawn");
         yield return new WaitForSeconds(respawnDelay);
         player.transform.position = currentCheckpoint.transform.position;
