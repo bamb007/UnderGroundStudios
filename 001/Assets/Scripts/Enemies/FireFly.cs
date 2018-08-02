@@ -81,6 +81,9 @@ public class FireFly : MonoBehaviour {
     [SerializeField]
     private float destroyProjectile;
 
+    [SerializeField]
+    private GameObject targetToShot;
+
 
     #endregion
 
@@ -169,6 +172,7 @@ public class FireFly : MonoBehaviour {
                 clone.projectileSpeed = projectileSpeed;
                 clone.destroyTime = destroyProjectile;
                 clone.damage = stats.damage;
+                clone.target = targetToShot;
 
                 attackDelayUse = attackDelay;
             }

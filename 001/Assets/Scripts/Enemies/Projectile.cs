@@ -16,6 +16,8 @@ public class Projectile : MonoBehaviour {
     //Used to use variables from player
     private GameObject player;
 
+    public GameObject target;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -25,7 +27,7 @@ public class Projectile : MonoBehaviour {
         playerStats = GetComponent<PlayerMovement>();
 
         // Aim bullet in player's direction.
-        transform.LookAt(player.transform.position);
+        transform.LookAt(target.transform.position);
     }
 	
 	// Update is called once per frame

@@ -14094,6 +14094,7 @@ MonoBehaviour:
   attackDelay: 2
   projectileSpeed: 10
   destroyProjectile: 5
+  targetToShot: {fileID: 1281785063}
 --- !u!65 &964979301
 BoxCollider:
   m_ObjectHideFlags: 0
