@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class EnemyStats : MonoBehaviour {
 
-    [SerializeField]
-    private float health;
+    public float health;
 
-    [SerializeField]
-    private float damage;
+    public float damage;
 
-    [SerializeField]
-    private int resistence;
+    public float movementSpeed;
+
+    public float resistance;
 
 	// Use this for initialization
 	void Start () {

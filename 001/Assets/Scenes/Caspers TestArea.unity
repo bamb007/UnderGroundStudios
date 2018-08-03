@@ -130,7 +130,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &232610033
 Transform:
   m_ObjectHideFlags: 0
@@ -4776,7 +4776,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &600275436
 Transform:
   m_ObjectHideFlags: 0
@@ -9319,7 +9319,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &732940376
 Transform:
   m_ObjectHideFlags: 0
@@ -14083,15 +14083,18 @@ MonoBehaviour:
   hSliderValueA: 1
   RotateSpeed: 2
   Radius: 3
-  detectionRange: 2
+  detectionRange: 5
   target: {fileID: 1281785063}
   orbitSpeed: 100
-  minTime: 2
-  maxTime: 5
-  attackTime: 0
-  projectileAttack: {fileID: 1720121294867360, guid: bbd5b65ec245aa347a848d4e52fd70f4,
+  changeStateMinTime: 2
+  changeStateMaxTime: 4
+  changeToAttackTime: 0
+  projectileAttack: {fileID: 114189707640117388, guid: 5115a1f6127700c43a6f90b268cae241,
     type: 2}
   attackDelay: 2
+  projectileSpeed: 10
+  destroyProjectile: 5
+  targetToShot: {fileID: 1281785063}
 --- !u!65 &964979301
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14196,9 +14199,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deec6661465aa704ab508279fd3ecbc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 100
   damage: 10
-  resistence: 0
+  movementSpeed: 2
+  resistance: 0
 --- !u!1 &1089861306
 GameObject:
   m_ObjectHideFlags: 0
@@ -18830,7 +18834,7 @@ GameObject:
   - component: {fileID: 1281785069}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18847,18 +18851,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 0.5
---- !u!65 &1281785065
-BoxCollider:
+  health: 100
+--- !u!61 &1281785065
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1281785063}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!23 &1281785066
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -23436,7 +23454,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1499684398
 Transform:
   m_ObjectHideFlags: 0

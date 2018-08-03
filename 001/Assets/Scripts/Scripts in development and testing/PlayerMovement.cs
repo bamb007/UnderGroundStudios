@@ -7,6 +7,9 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField]
     private float movementSpeed;
 
+    [SerializeField]
+    private float health;
+
 
 	// Use this for initialization
 	void Start ()
@@ -18,7 +21,16 @@ public class PlayerMovement : MonoBehaviour {
 	void Update ()
     {
         Move();
+        Death();
 	}
+
+    private void Death()
+    {
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Move()
     {
@@ -38,6 +50,11 @@ public class PlayerMovement : MonoBehaviour {
         {
             transform.position += new Vector3(0, -1 * movementSpeed, 0);
         }
+    }
+
+    public void TakeDamage(float dmg)
+    {
+        health -= dmg;
     }
 }
 
