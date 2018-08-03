@@ -3,21 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour {
-    public float speed;
-    private Rigidbody2D rb2d;
+
+    public float velX = 5;
+    float velY = 0;
+    Rigidbody2D rb;
 	// Use this for initialization
 	void Start () {
-		
+        rb = GetComponent<Rigidbody2D>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        rb2d.velocity = new Vector2(speed, rb2d.velocity.y);
-        
+        rb.velocity = new Vector2(velX, velY);
 	}
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Destroy(gameObject);
-    }
 }
