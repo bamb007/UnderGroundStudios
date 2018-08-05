@@ -68,23 +68,23 @@ public class OrbitAround : MonoBehaviour
         #region OrbitControl
 
         #region OwnOrbit
-        if (startDelayOwn > 0)
-        {
-            startDelayOwn -= Time.deltaTime;
-        }
-        else if (startDelayOwn <= 0 && stopOrbitOwn == false)
-        {
-            Orbit();
-            if (stopOrbitOwn == true)
+            if (startDelayOwn > 0)
             {
-                endDelayOwn -= Time.deltaTime;
-                if (endDelayOwn <= 0)
+                startDelayOwn -= Time.deltaTime;
+            }
+            else if (startDelayOwn <= 0 && stopOrbitOwn == false)
+            {
+                Orbit();
+                if (stopOrbitOwn == true)
                 {
-                    endOrbitOwn = true;
+                    endDelayOwn -= Time.deltaTime;
+                    if (endDelayOwn <= 0)
+                    {
+                        endOrbitOwn = true;
+                    }
                 }
             }
-        }
-        #endregion
+            #endregion
 
         #region OtherOrbit
         if (startDelayOther > 0)

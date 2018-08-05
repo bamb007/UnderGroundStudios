@@ -24,7 +24,7 @@ public class Projectile : MonoBehaviour {
         //Finds the player
         player = GameObject.FindGameObjectWithTag("Player");
 
-        playerStats = GetComponent<PlayerMovement>();
+        playerStats = player.GetComponent<PlayerMovement>();
 
         // Aim bullet in player's direction.
         transform.LookAt(target.transform.position);
@@ -41,11 +41,12 @@ public class Projectile : MonoBehaviour {
     //Collision check and action
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.tag == "Player")
+        if (other.gameObject.CompareTag("Player"))
         {
             playerStats.TakeDamage(damage);
 
             Debug.Log("Projectile / Projectile hit player");
+            Destroy(gameObject);
         }
     }
 }
