@@ -45,6 +45,10 @@ public class FireFly : MonoBehaviour {
 
     [SerializeField]
     private float detectionRange;
+
+    [SerializeField]
+    private float attackRange;
+
     [SerializeField]
     private GameObject target;
     [SerializeField]
@@ -107,6 +111,7 @@ public class FireFly : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+
         #region ParticleSystem color change
         //Changes the color of the particlesystem
         var main = ps.main;
@@ -151,13 +156,16 @@ public class FireFly : MonoBehaviour {
                 hSliderValueR = 1.0f;
             }
 
-            if (Vector3.Distance(target.transform.position, transform.position) > detectionRange)
+            if (Vector3.Distance(target.transform.position, transform.position) > attackRange)
             {
                 currentAIState = Aistates.Idle;
 
                 hSliderValueG = 1.0f;
                 hSliderValueB = 0.0f;
                 hSliderValueR = 0.0f;
+
+                //Sets the idle movement to the new position
+                centre = transform.position;
             }
 
             Debug.Log("FireFly Script / AIstate.Alert");
@@ -177,17 +185,21 @@ public class FireFly : MonoBehaviour {
                 attackDelayUse = attackDelay;
             }
 
-            if (Vector3.Distance(target.transform.position, transform.position) > detectionRange)
+            if (Vector3.Distance(target.transform.position, transform.position) > attackRange)
             {
                 currentAIState = Aistates.Idle;
 
                 hSliderValueG = 1.0f;
                 hSliderValueB = 0.0f;
                 hSliderValueR = 0.0f;
+
+                //Sets the idle movement to the new position
+                centre = transform.position;
             }
 
             Debug.Log("FireFlyScripts / AIstate.attack");
         }
         #endregion
+
     }
 }
