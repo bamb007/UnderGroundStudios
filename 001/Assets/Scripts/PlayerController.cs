@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour {
     public LayerMask whatIsGround;
     private bool grounded;
     private bool doubleJumped;
+    public Transform firePoint;
+    public GameObject bullet;
 
 	// Use this for initialization
 	void Start () {
@@ -125,6 +127,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (Input.GetMouseButtonDown(0))
         {
+            Instantiate(bullet, firePoint.position, firePoint.rotation);
             anim.SetInteger("State", 4);
         }
         else if (Input.GetMouseButtonUp(0))
