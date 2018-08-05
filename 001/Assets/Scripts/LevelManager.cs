@@ -12,6 +12,7 @@ public class LevelManager : MonoBehaviour
     public GameObject deathParticle;
     public GameObject respawnParticle;
     public float respawnDelay;
+    private CameraController camera;
 
     public LevelManager()
     {
@@ -20,6 +21,7 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         player = FindObjectOfType<PlayerController>();
+        camera = FindObjectOfType<CameraController>();
     }
 
     // Update is called once per frame
@@ -38,12 +40,13 @@ public class LevelManager : MonoBehaviour
         Instantiate(deathParticle, player.transform.position, player.transform.rotation);
         player.enabled = false;
         player.GetComponent<Renderer>().enabled = false;
-        player.rb2d.gravityScale = 1.0f;
+        camera.isFollowing = false;
         Debug.Log("LevelManager / Player Respawn");
         yield return new WaitForSeconds(respawnDelay);
         player.transform.position = currentCheckpoint.transform.position;
         player.enabled = true;
         player.GetComponent<Renderer>().enabled = true;
+        camera.isFollowing = true;
         Instantiate(respawnParticle, currentCheckpoint.transform.position, currentCheckpoint.transform.rotation);
     }
 }
