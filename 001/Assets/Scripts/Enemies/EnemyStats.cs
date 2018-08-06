@@ -21,7 +21,7 @@ public class EnemyStats : MonoBehaviour {
 	void Update ()
     {
         //Test death
-        health -= Time.deltaTime;
+        //health -= Time.deltaTime;
 
 		if (health <= 0)
         {

@@ -21,8 +21,22 @@ public class PlayerController : MonoBehaviour {
     public Transform firePoint;
     public GameObject bullet;
 
-	// Use this for initialization
-	void Start () {
+    [Header("Projectile stats")]
+
+    [SerializeField]
+    private float projectileSpeed;
+
+    [SerializeField]
+    private float destroyProjectile;
+
+    [SerializeField]
+    private GameObject targetToShot;
+
+    [SerializeField]
+    private Projectile projectileAttack;
+
+    // Use this for initialization
+    void Start () {
 
         anim = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
@@ -127,7 +141,11 @@ public class PlayerController : MonoBehaviour {
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Instantiate(bullet, firePoint.position, firePoint.rotation);
+            var clone = Instantiate(projectileAttack, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity);
+            clone.projectileSpeed = projectileSpeed;
+            clone.destroyTime = destroyProjectile;
+            clone.target = targetToShot;
+            //Instantiate(bullet, firePoint.position, firePoint.rotation);
             anim.SetInteger("State", 4);
         }
         else if (Input.GetMouseButtonUp(0))

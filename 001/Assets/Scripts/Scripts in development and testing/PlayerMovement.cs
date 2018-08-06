@@ -10,17 +10,24 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField]
     private float health;
 
+    private Rigidbody2D rb2d;
 
 	// Use this for initialization
 	void Start ()
     {
-		
+        rb2d = GetComponent<Rigidbody2D>();
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        Move();
+
+        float moveHori = Input.GetAxis("Horizontal");
+        float moveVert = Input.GetAxis("Vertical");
+        Vector2 movement = new Vector2(moveHori, moveVert);
+        rb2d.AddForce(movement * movementSpeed);
+        
+
         Death();
 	}
 
@@ -55,6 +62,14 @@ public class PlayerMovement : MonoBehaviour {
     public void TakeDamage(float dmg)
     {
         health -= dmg;
+        Debug.Log("Player took " + dmg + " damage and health is now " + health + " HP");     
     }
+
+    
+    void OnTriggerEnter2D(Collider2D other)
+    {
+
+    }
+    
 }
 
