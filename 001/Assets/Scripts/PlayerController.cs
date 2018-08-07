@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour {
     private bool doubleJumped;
     public Transform firePoint;
     public GameObject bullet;
+    public float direction;
 
     [Header("Projectile stats")]
 
@@ -48,7 +49,7 @@ public class PlayerController : MonoBehaviour {
 
         if (!grounded && temp)
         {
-            anim.SetInteger("State", 0);
+            anim.SetBool("jumping", false);
 
         }
 
@@ -64,29 +65,28 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.A))
         {
-            anim.SetInteger("State", 1);
+            anim.SetInteger("direction", -1);
         }
         else if (Input.GetKeyUp(KeyCode.A))
         {
-            anim.SetInteger("State", 0);
+            anim.SetInteger("direction", 0);
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
-            anim.SetInteger("State", 1);
+            anim.SetInteger("direction", 1);
         }
         else if (Input.GetKeyUp(KeyCode.D))
         {
-            anim.SetInteger("State", 0);
+            anim.SetInteger("direction", 0);
         }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            
-            anim.SetInteger("State", 2);
+            anim.SetBool("running", true);
         }
         else if (Input.GetKeyUp(KeyCode.R))
         {
-            anim.SetInteger("State", 0);
+            anim.SetBool("running", false);
         }
 
         if (grounded)
@@ -97,17 +97,16 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Space) && grounded)
         {
             Jump();
-            anim.SetInteger("State", 3);
+            anim.SetBool("jumping", true);
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && !doubleJumped && !grounded)
         {
             Jump();
             doubleJumped = true;
-            anim.SetInteger("State", 0);
+            anim.SetBool("jumping", false);
             anim.Update(0);
-            anim.SetInteger("State", 3);
-        
+            anim.SetBool("jumping", true);
         }
 
         Attack();
@@ -146,20 +145,12 @@ public class PlayerController : MonoBehaviour {
             clone.destroyTime = destroyProjectile;
             clone.target = targetToShot;
             //Instantiate(bullet, firePoint.position, firePoint.rotation);
-            anim.SetInteger("State", 4);
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            anim.SetInteger("State", 0);
+            anim.SetTrigger("shoot");
         }
 
         if (Input.GetMouseButtonDown(1))
         {
-            anim.SetInteger("State", 5);
-        }
-        else if (Input.GetMouseButtonUp(1))
-        {
-            anim.SetInteger("State", 0);
+            anim.SetTrigger("shoot2");
         }
     }
 }
