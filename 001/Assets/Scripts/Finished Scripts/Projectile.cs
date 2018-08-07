@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour {
 
+    [Header("Player or enemy")]
+
+    public bool playerProjectile;
+
+    public bool enemyProjectile;
+
+    [Header("ProjectileStats")]
     //Finds the players stats
     private PlayerMovement playerStats;
 
@@ -13,10 +20,11 @@ public class Projectile : MonoBehaviour {
 
     public float destroyTime;
 
+    //Used to target a specific gameobject
+    public GameObject target;
+
     //Used to use variables from player
     private GameObject player;
-
-    public GameObject target;
 
 	// Use this for initialization
 	void Start ()
@@ -26,7 +34,7 @@ public class Projectile : MonoBehaviour {
 
         playerStats = player.GetComponent<PlayerMovement>();
 
-        // Aim bullet in player's direction.
+        //Aim bullet in player's direction.
         transform.LookAt(target.transform.position);
     }
 	
@@ -41,12 +49,21 @@ public class Projectile : MonoBehaviour {
     //Collision check and action
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (playerProjectile == true)
         {
-            playerStats.TakeDamage(damage);
 
-            Debug.Log("Projectile / Projectile hit player");
-            Destroy(gameObject);
         }
+
+        if (enemyProjectile == true)
+        {
+            if (other.gameObject.CompareTag("Player"))
+            {
+                playerStats.TakeDamage(damage);
+
+                Debug.Log("Projectile / Projectile hit player");
+                Destroy(gameObject);
+            }
+        }
+
     }
 }

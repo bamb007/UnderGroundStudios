@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class FireFly : MonoBehaviour {
 
+    //Used to make different AIStates
     enum Aistates { Idle, Alert, Attack};
 
     #region Variables
 
+    //Used to find the player 
+    private GameObject player;
+
+    //Used to find its own stats
     private EnemyStats stats;
+
 
     [Header("Enemy State")]
     [SerializeField]
@@ -88,7 +94,6 @@ public class FireFly : MonoBehaviour {
     [SerializeField]
     private GameObject targetToShot;
 
-
     #endregion
 
     // Use this for initialization
@@ -104,6 +109,9 @@ public class FireFly : MonoBehaviour {
         //Used to get and use stats
         stats = GetComponent<EnemyStats>();
 
+        //Used to find the player gameobject
+        player = GameObject.FindGameObjectWithTag("Player");
+
         //AttackDelay in attack state
         attackDelayUse = attackDelay;
     }
@@ -111,6 +119,17 @@ public class FireFly : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        #region Finding target null
+        if (targetToShot == null)
+        {
+            targetToShot = player;
+        }
+
+        if (target == null)
+        {
+            target = player;
+        }
+        #endregion
 
         #region ParticleSystem color change
         //Changes the color of the particlesystem
@@ -181,6 +200,7 @@ public class FireFly : MonoBehaviour {
                 clone.destroyTime = destroyProjectile;
                 clone.damage = stats.damage;
                 clone.target = targetToShot;
+                clone.enemyProjectile = true;
 
                 attackDelayUse = attackDelay;
             }
