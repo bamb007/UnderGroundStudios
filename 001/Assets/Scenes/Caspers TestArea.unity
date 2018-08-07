@@ -113,6 +113,111 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &410662997
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 410663000}
+  - component: {fileID: 410662999}
+  - component: {fileID: 410662998}
+  m_Layer: 0
+  m_Name: TreasureChest
+  m_TagString: Treasurechest
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &410662998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 410662997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e37b6e65859fb154c91bf5698f7b9c4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootDropTable:
+    lootDropItems:
+    - item: {fileID: 1950787501148968, guid: 199e67e9333374441b47571e9c9a503b, type: 2}
+      probabilityWeight: 200
+      probabilityPercent: 57.142857
+      probabilityRangeFrom: 0
+      probabilityRangeTo: 200
+    - item: {fileID: 1928390012104016, guid: ec416441f786208418ed819f61a69403, type: 2}
+      probabilityWeight: 100
+      probabilityPercent: 28.571428
+      probabilityRangeFrom: 200
+      probabilityRangeTo: 300
+    - item: {fileID: 1781738206627724, guid: a994fe06d337d764384104726c216e18, type: 2}
+      probabilityWeight: 50
+      probabilityPercent: 14.285714
+      probabilityRangeFrom: 300
+      probabilityRangeTo: 350
+  numItemsToDrop: 10
+--- !u!212 &410662999
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 410662997}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Color: {r: 1, g: 0.94291973, b: 0, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.16, y: 0.16}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &410663000
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 410662997}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3, y: 3, z: 0}
+  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &474261853
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,52 +303,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &776711732
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4164576661072744, guid: a190219541358b04c80d756452053666, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -1.94
-      objectReference: {fileID: 0}
-    - target: {fileID: 4164576661072744, guid: a190219541358b04c80d756452053666, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 4164576661072744, guid: a190219541358b04c80d756452053666, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4164576661072744, guid: a190219541358b04c80d756452053666, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4164576661072744, guid: a190219541358b04c80d756452053666, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4164576661072744, guid: a190219541358b04c80d756452053666, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4164576661072744, guid: a190219541358b04c80d756452053666, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4164576661072744, guid: a190219541358b04c80d756452053666, type: 2}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1142078655035224, guid: a190219541358b04c80d756452053666, type: 2}
-      propertyPath: m_Name
-      value: FireFlyEnemy (1)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a190219541358b04c80d756452053666, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1001 &1068680081
 Prefab:
   m_ObjectHideFlags: 0
@@ -293,6 +352,10 @@ Prefab:
       propertyPath: targetToShot
       value: 
       objectReference: {fileID: 1281785063}
+    - target: {fileID: 1142078655035224, guid: a190219541358b04c80d756452053666, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a190219541358b04c80d756452053666, type: 2}
   m_IsPrefabAsset: 0
@@ -305,11 +368,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4239294539926860, guid: b1bc0a41e7e1f9a4cabd4891d382c89b, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -2.82
       objectReference: {fileID: 0}
     - target: {fileID: 4239294539926860, guid: b1bc0a41e7e1f9a4cabd4891d382c89b, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.38
       objectReference: {fileID: 0}
     - target: {fileID: 4239294539926860, guid: b1bc0a41e7e1f9a4cabd4891d382c89b, type: 2}
       propertyPath: m_LocalPosition.z

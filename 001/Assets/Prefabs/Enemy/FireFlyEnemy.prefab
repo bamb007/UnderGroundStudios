@@ -458,7 +458,7 @@ MonoBehaviour:
   Radius: 3
   detectionRange: 2
   attackRange: 5
-  target: {fileID: 1636323673256124, guid: b1bc0a41e7e1f9a4cabd4891d382c89b, type: 2}
+  target: {fileID: 0}
   orbitSpeed: 100
   changeStateMinTime: 2
   changeStateMaxTime: 4
@@ -468,8 +468,7 @@ MonoBehaviour:
   attackDelay: 2
   projectileSpeed: 10
   destroyProjectile: 5
-  targetToShot: {fileID: 1636323673256124, guid: b1bc0a41e7e1f9a4cabd4891d382c89b,
-    type: 2}
+  targetToShot: {fileID: 0}
 --- !u!114 &114497817530760220
 MonoBehaviour:
   m_ObjectHideFlags: 1
