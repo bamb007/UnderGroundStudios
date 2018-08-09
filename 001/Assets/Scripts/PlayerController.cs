@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour {
     public Transform firePoint;
     public GameObject bullet;
     public float direction;
+    public HiddenObject hobj;
 
     [Header("Projectile stats")]
 
@@ -152,6 +153,14 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetMouseButtonDown(1))
         {
             anim.SetTrigger("shoot2");
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Cube")
+        {
+            hobj.enabled = true;
         }
     }
 }
