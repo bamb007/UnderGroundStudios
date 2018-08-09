@@ -35,7 +35,8 @@ public class Projectile : MonoBehaviour {
         playerStats = player.GetComponent<PlayerMovement>();
 
         //Aim bullet in player's direction.
-        transform.LookAt(target.transform.position);
+        //transform.LookAt(target.transform.position);
+        transform.rotation = Quaternion.LookRotation(Camera.main.ScreenToWorldPoint(Input.mousePosition));
     }
 	
 	// Update is called once per frame
