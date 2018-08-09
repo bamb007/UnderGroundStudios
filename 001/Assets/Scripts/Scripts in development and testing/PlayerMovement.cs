@@ -12,8 +12,22 @@ public class PlayerMovement : MonoBehaviour {
 
     private Rigidbody2D rb2d;
 
-	// Use this for initialization
-	void Start ()
+    [Header("Projectile stats")]
+
+    [SerializeField]
+    private float projectileSpeed;
+
+    [SerializeField]
+    private float destroyProjectile;
+
+    [SerializeField]
+    private GameObject targetToShot;
+
+    [SerializeField]
+    private Projectile projectileAttack;
+
+    // Use this for initialization
+    void Start ()
     {
         rb2d = GetComponent<Rigidbody2D>();
 	}
@@ -27,6 +41,15 @@ public class PlayerMovement : MonoBehaviour {
         Vector2 movement = new Vector2(moveHori, moveVert);
         rb2d.AddForce(movement * movementSpeed);
         
+        if(Input.GetMouseButtonDown(0))
+        {
+            Debug.Log("Player attacking");
+            var clone = Instantiate(projectileAttack, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity);
+            clone.projectileSpeed = projectileSpeed;
+            clone.destroyTime = destroyProjectile;
+            clone.target = targetToShot;
+            clone.playerProjectile = true;
+        }
 
         Death();
 	}

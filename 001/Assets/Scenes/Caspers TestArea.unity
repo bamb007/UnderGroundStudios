@@ -145,19 +145,24 @@ MonoBehaviour:
     lootDropItems:
     - item: {fileID: 1950787501148968, guid: 199e67e9333374441b47571e9c9a503b, type: 2}
       probabilityWeight: 200
-      probabilityPercent: 57.142857
+      probabilityPercent: 23.529411
       probabilityRangeFrom: 0
       probabilityRangeTo: 200
     - item: {fileID: 1928390012104016, guid: ec416441f786208418ed819f61a69403, type: 2}
       probabilityWeight: 100
-      probabilityPercent: 28.571428
+      probabilityPercent: 11.764706
       probabilityRangeFrom: 200
       probabilityRangeTo: 300
     - item: {fileID: 1781738206627724, guid: a994fe06d337d764384104726c216e18, type: 2}
       probabilityWeight: 50
-      probabilityPercent: 14.285714
+      probabilityPercent: 5.882353
       probabilityRangeFrom: 300
       probabilityRangeTo: 350
+    - item: {fileID: 1796190131804032, guid: d6c0adc8004d9b440a0041f1a2de08e7, type: 2}
+      probabilityWeight: 500
+      probabilityPercent: 58.82353
+      probabilityRangeFrom: 350
+      probabilityRangeTo: 850
   numItemsToDrop: 10
 --- !u!212 &410662999
 SpriteRenderer:
@@ -312,11 +317,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4164576661072744, guid: a190219541358b04c80d756452053666, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 1.95
+      value: 7.07
       objectReference: {fileID: 0}
     - target: {fileID: 4164576661072744, guid: a190219541358b04c80d756452053666, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.21
+      value: 0.46
       objectReference: {fileID: 0}
     - target: {fileID: 4164576661072744, guid: a190219541358b04c80d756452053666, type: 2}
       propertyPath: m_LocalPosition.z
@@ -402,6 +407,22 @@ Prefab:
     - target: {fileID: 4239294539926860, guid: b1bc0a41e7e1f9a4cabd4891d382c89b, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114608201337132716, guid: b1bc0a41e7e1f9a4cabd4891d382c89b,
+        type: 2}
+      propertyPath: projectileAttack
+      value: 
+      objectReference: {fileID: 114209937931821642, guid: 29543e610e431444d87c8ec82b991b33,
+        type: 2}
+    - target: {fileID: 114608201337132716, guid: b1bc0a41e7e1f9a4cabd4891d382c89b,
+        type: 2}
+      propertyPath: projectileSpeed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 114608201337132716, guid: b1bc0a41e7e1f9a4cabd4891d382c89b,
+        type: 2}
+      propertyPath: destroyProjectile
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1bc0a41e7e1f9a4cabd4891d382c89b, type: 2}
