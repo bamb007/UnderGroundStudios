@@ -15,6 +15,8 @@ public class FireFly : MonoBehaviour {
     //Used to find its own stats
     private EnemyStats stats;
 
+    [SerializeField]
+    private bool debugMode;
 
     [Header("Enemy State")]
     [SerializeField]
@@ -157,7 +159,10 @@ public class FireFly : MonoBehaviour {
                 hSliderValueB = 1.0f;
             }
 
-            Debug.Log("FireFly Script / AIstate.Idle");
+            if (debugMode == true)
+            {
+                Debug.Log("FireFly Script / AIstate.Idle");
+            }
         }
         else if (currentAIState == Aistates.Alert)
         {
@@ -186,8 +191,10 @@ public class FireFly : MonoBehaviour {
                 //Sets the idle movement to the new position
                 centre = transform.position;
             }
-
-            Debug.Log("FireFly Script / AIstate.Alert");
+            if (debugMode == true)
+            {
+                Debug.Log("FireFly Script / AIstate.Alert");
+            }
         }
         else if (currentAIState == Aistates.Attack)
         {
@@ -216,8 +223,10 @@ public class FireFly : MonoBehaviour {
                 //Sets the idle movement to the new position
                 centre = transform.position;
             }
-
-            Debug.Log("FireFlyScripts / AIstate.attack");
+            if (debugMode == true)
+            {
+                Debug.Log("FireFlyScripts / AIstate.attack");
+            }
         }
         #endregion
 
