@@ -144,6 +144,7 @@ public class PlayerController : MonoBehaviour {
             clone.projectileSpeed = projectileSpeed;
             clone.destroyTime = destroyProjectile;
             clone.target = targetToShot;
+            clone.playerProjectile = true;
             //Instantiate(bullet, firePoint.position, firePoint.rotation);
             anim.SetTrigger("shoot");
         }
