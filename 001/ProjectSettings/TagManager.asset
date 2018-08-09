@@ -9,6 +9,8 @@ TagManager:
   - Projectile
   - Treasurechest
   - Pickup
+  - Cube
+  - Crate
   layers:
   - Default
   - TransparentFX

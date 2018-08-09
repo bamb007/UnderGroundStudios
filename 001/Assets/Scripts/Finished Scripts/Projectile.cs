@@ -51,7 +51,10 @@ public class Projectile : MonoBehaviour {
     {
         if (playerProjectile == true)
         {
-
+            if (other.gameObject.CompareTag("Crate"))
+            {
+                Destroy(gameObject);
+            }
         }
 
         if (enemyProjectile == true)
