@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 410663000}
   - component: {fileID: 410662999}
   - component: {fileID: 410662998}
+  - component: {fileID: 410663001}
   m_Layer: 0
   m_Name: TreasureChest
   m_TagString: Treasurechest
@@ -136,34 +137,20 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 410662997}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e37b6e65859fb154c91bf5698f7b9c4f, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b1059d827b450347b617b965728c1ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lootDropTable:
-    lootDropItems:
-    - item: {fileID: 1950787501148968, guid: 199e67e9333374441b47571e9c9a503b, type: 2}
-      probabilityWeight: 200
-      probabilityPercent: 23.529411
-      probabilityRangeFrom: 0
-      probabilityRangeTo: 200
-    - item: {fileID: 1928390012104016, guid: ec416441f786208418ed819f61a69403, type: 2}
-      probabilityWeight: 100
-      probabilityPercent: 11.764706
-      probabilityRangeFrom: 200
-      probabilityRangeTo: 300
-    - item: {fileID: 1781738206627724, guid: a994fe06d337d764384104726c216e18, type: 2}
-      probabilityWeight: 50
-      probabilityPercent: 5.882353
-      probabilityRangeFrom: 300
-      probabilityRangeTo: 350
-    - item: {fileID: 1796190131804032, guid: d6c0adc8004d9b440a0041f1a2de08e7, type: 2}
-      probabilityWeight: 500
-      probabilityPercent: 58.82353
-      probabilityRangeFrom: 350
-      probabilityRangeTo: 850
-  numItemsToDrop: 10
+  lootTable:
+  - items:
+    - {fileID: 0}
+    - {fileID: 0}
+    probabilityWeight: 677
+    probabilityPercent: 0
+    active: 0
+    probabilityRangeFrom: 0
+    probabilityRangeTo: 0
 --- !u!212 &410662999
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -223,6 +210,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &410663001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 410662997}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e37b6e65859fb154c91bf5698f7b9c4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootDropTable:
+    lootDropItems:
+    - item: {fileID: 0}
+      probabilityWeight: 0
+      probabilityPercent: NaN
+      probabilityRangeFrom: 0
+      probabilityRangeTo: 0
+  numItemsToDrop: 6
 --- !u!1 &474261853
 GameObject:
   m_ObjectHideFlags: 0
