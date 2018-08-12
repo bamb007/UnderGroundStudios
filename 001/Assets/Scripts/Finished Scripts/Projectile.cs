@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour {
+public class Projectile : MonoBehaviour
+{
 
     [Header("Player or enemy")]
 
@@ -26,8 +27,8 @@ public class Projectile : MonoBehaviour {
     //Used to use variables from player
     private GameObject player;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
         //Finds the player
         player = GameObject.FindGameObjectWithTag("Player");
@@ -35,22 +36,30 @@ public class Projectile : MonoBehaviour {
         playerStats = player.GetComponent<PlayerMovement>();
 
         //Aim bullet in player's direction.
-        //transform.LookAt(target.transform.position);
-        transform.rotation = Quaternion.LookRotation(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+
+        if (enemyProjectile)
+        {
+            transform.LookAt(target.transform.position);
+        }
+
+        if (playerProjectile)
+        {
+            transform.rotation = Quaternion.LookRotation(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        }
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
         transform.position += transform.forward * projectileSpeed * Time.deltaTime;
 
         Destroy(gameObject, destroyTime);
-	}
+    }
 
     //Collision check and action
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (playerProjectile == true)
+        if (playerProjectile)
         {
             if (other.gameObject.CompareTag("Crate"))
             {
@@ -58,7 +67,7 @@ public class Projectile : MonoBehaviour {
             }
         }
 
-        if (enemyProjectile == true)
+        if (enemyProjectile)
         {
             if (other.gameObject.CompareTag("Player"))
             {

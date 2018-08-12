@@ -15,86 +15,59 @@ public class FireFly : MonoBehaviour {
     //Used to find its own stats
     private EnemyStats stats;
 
-    [SerializeField]
-    private bool debugMode;
+    [SerializeField] private bool debugMode;
+
 
     [Header("Enemy State")]
-    [SerializeField]
-    private Aistates currentAIState;
+    [SerializeField] private Aistates currentAIState;
+    [Space(10)]
 
     [Header("ParticleSystem")]
 
-    [SerializeField]
-    private ParticleSystem ps;
-    [SerializeField]
-    private float hSliderValueR = 0.0f;
-    [SerializeField]
-    private float hSliderValueG = 1.0f;
-    [SerializeField]
-    private float hSliderValueB = 0.0f;
-    [SerializeField]
-    private float hSliderValueA = 1.0f;
-
-
+    [SerializeField] private ParticleSystem ps;
+    [SerializeField] private float hSliderValueR = 0.0f;
+    [SerializeField] private float hSliderValueG = 1.0f;
+    [SerializeField] private float hSliderValueB = 0.0f;
+    [SerializeField] private float hSliderValueA = 1.0f;
+    [Space(10)]
+   
     [Header("Idle state / movement")]
-
-    [SerializeField]
-    private float RotateSpeed;
-
-    [SerializeField]
-    private float Radius;
+ 
+    [SerializeField] private float RotateSpeed;
+    [SerializeField] private float Radius;
 
     private float scale;
     private Vector3 offset;
     private Vector3 centre;
     private float angle;
+    [Space(10)]
 
     [Header("Alert state")]
 
-    [SerializeField]
-    private float detectionRange;
-
-    [SerializeField]
-    private float attackRange;
-
-    [SerializeField]
-    private GameObject target;
-    [SerializeField]
-    private float orbitSpeed;
-
-    [SerializeField]
-    private float changeStateMinTime;
-
-    [SerializeField]
-    private float changeStateMaxTime;
-
-    [SerializeField]
-    private float changeToAttackTime;
+    [SerializeField] private float detectionRange;
+    [SerializeField] private float attackRange;
+    [SerializeField] private GameObject target;
+    [SerializeField] private float orbitSpeed;
+    [SerializeField] private float changeStateMinTime, changeStateMaxTime, changeToAttackTime;
 
     //Finds its own orbit script and fills in the blanks
     private OrbitAround orbitAround;
+    [Space(10)]
 
     [Header("Attack state")]
 
     //Gameobject works but variables is made in projectile
-    [SerializeField]
-    private Projectile projectileAttack;
-
-    [SerializeField]
-    private float attackDelay;
+    [SerializeField] private Projectile projectileAttack;
+    [SerializeField] private float attackDelay;
 
     private float attackDelayUse;
+    [Space(10)]
 
     [Header("Projectile stats")]
 
-    [SerializeField]
-    private float projectileSpeed;
-
-    [SerializeField]
-    private float destroyProjectile;
-
-    [SerializeField]
-    private GameObject targetToShot;
+    [SerializeField] private float projectileSpeed;
+    [SerializeField] private float destroyProjectile;
+    [SerializeField] private GameObject targetToShot;
 
     #endregion
 
@@ -159,7 +132,7 @@ public class FireFly : MonoBehaviour {
                 hSliderValueB = 1.0f;
             }
 
-            if (debugMode == true)
+            if (debugMode)
             {
                 Debug.Log("FireFly Script / AIstate.Idle");
             }
@@ -191,7 +164,7 @@ public class FireFly : MonoBehaviour {
                 //Sets the idle movement to the new position
                 centre = transform.position;
             }
-            if (debugMode == true)
+            if (debugMode)
             {
                 Debug.Log("FireFly Script / AIstate.Alert");
             }
@@ -223,7 +196,7 @@ public class FireFly : MonoBehaviour {
                 //Sets the idle movement to the new position
                 centre = transform.position;
             }
-            if (debugMode == true)
+            if (debugMode)
             {
                 Debug.Log("FireFlyScripts / AIstate.attack");
             }

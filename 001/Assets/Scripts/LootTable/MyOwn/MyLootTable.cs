@@ -24,54 +24,60 @@ public class ItemsToDrop
 public class MyLootTable : MonoBehaviour
 {
 
-    public ItemsToDrop[] lootTable;
+
+    public List<ItemsToDrop> lootTable;
 
     // Sum of all weights of items.
     float probabilityTotalWeight;
+    private ItemsToDrop test;
 
     // Use this for initialization
-    void Start ()
-    {
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-		
-	}
-
-    public void ValidateTable()
+    void Start()
     {
 
-            float currentProbabilityWeightMaximum = 0f;
-        /*
-            // Sets the weight ranges of the selected items.
-            foreach (GameObject lootDropItem in lootTable)
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            GameObject g1;
+            GameObject g2;
+
+            foreach (ItemsToDrop itd in lootTable)
             {
-
-                if (lootTable.probabilityWeight < 0f)
+                if (itd.active == true)
                 {
-                    // Prevent usage of negative weight.
-                    Debug.Log("You can't have negative weight on an item. Reseting item's weight to 0.");
-                    lootDropItem.probabilityWeight = 0f;
+                    g1 = null;
+                    g2 = null;
+
+                    foreach (GameObject go in itd.items)
+                    {
+                        if (g1 == null)
+                        {
+                            g1 = go;
+                        }
+                        else if (g2 == null)
+                        {
+                            g2 = go;
+                        }
+
+                    }
+                    if (g1 != null && g2 == null)
+                    {
+                        Debug.Log("Active:" + itd.active + "\nGameobject (1):" + g1 + "\n Precent: " + itd.probabilityPercent + "\n Weight: " + itd.probabilityWeight);
+                    }
+                    else if (g1 != null && g2 != null)
+                    {
+                        Debug.Log("Active:" + itd.active + "\nGameobject (1):" + g1 + "\nGameobject (2): " + g2 + "\nPrecent: " + itd.probabilityPercent + "\nWeight: " + itd.probabilityWeight);
+                    }
+                    else
+                    {
+                        Debug.Log("Active:" + itd.active + "\nPrecent: " + itd.probabilityPercent + "\nWeight: " + itd.probabilityWeight);
+                    }
                 }
-                else
-                {
-                    lootDropItem.probabilityRangeFrom = currentProbabilityWeightMaximum;
-                    currentProbabilityWeightMaximum += lootDropItem.probabilityWeight;
-                    lootDropItem.probabilityRangeTo = currentProbabilityWeightMaximum;
-                }
-
             }
-
-            probabilityTotalWeight = currentProbabilityWeightMaximum;
-
-            // Calculate percentage of item drop select rate.
-            foreach (T lootDropItem in lootDropItems)
-            {
-                lootDropItem.probabilityPercent = ((lootDropItem.probabilityWeight) / probabilityTotalWeight) * 100;
-            }
-            */
+        }
     }
 }

@@ -123,7 +123,6 @@ GameObject:
   - component: {fileID: 410663000}
   - component: {fileID: 410662999}
   - component: {fileID: 410662998}
-  - component: {fileID: 410663001}
   m_Layer: 0
   m_Name: TreasureChest
   m_TagString: Treasurechest
@@ -137,18 +136,32 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 410662997}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0b1059d827b450347b617b965728c1ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   lootTable:
   - items:
-    - {fileID: 0}
-    - {fileID: 0}
-    probabilityWeight: 677
+    - {fileID: 1950787501148968, guid: 199e67e9333374441b47571e9c9a503b, type: 2}
+    - {fileID: 1781738206627724, guid: a994fe06d337d764384104726c216e18, type: 2}
+    probabilityWeight: 100
     probabilityPercent: 0
-    active: 0
+    active: 1
+    probabilityRangeFrom: 0
+    probabilityRangeTo: 0
+  - items:
+    - {fileID: 0}
+    probabilityWeight: 100
+    probabilityPercent: 0
+    active: 1
+    probabilityRangeFrom: 0
+    probabilityRangeTo: 0
+  - items:
+    - {fileID: 1781738206627724, guid: a994fe06d337d764384104726c216e18, type: 2}
+    probabilityWeight: 100
+    probabilityPercent: 0
+    active: 1
     probabilityRangeFrom: 0
     probabilityRangeTo: 0
 --- !u!212 &410662999
@@ -210,25 +223,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &410663001
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 410662997}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e37b6e65859fb154c91bf5698f7b9c4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lootDropTable:
-    lootDropItems:
-    - item: {fileID: 0}
-      probabilityWeight: 0
-      probabilityPercent: NaN
-      probabilityRangeFrom: 0
-      probabilityRangeTo: 0
-  numItemsToDrop: 6
 --- !u!1 &474261853
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,11 +317,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4164576661072744, guid: a190219541358b04c80d756452053666, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 7.07
+      value: -0.32
       objectReference: {fileID: 0}
     - target: {fileID: 4164576661072744, guid: a190219541358b04c80d756452053666, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.46
+      value: 2.51
       objectReference: {fileID: 0}
     - target: {fileID: 4164576661072744, guid: a190219541358b04c80d756452053666, type: 2}
       propertyPath: m_LocalPosition.z
@@ -357,12 +351,12 @@ Prefab:
         type: 2}
       propertyPath: target
       value: 
-      objectReference: {fileID: 1281785063}
+      objectReference: {fileID: 0}
     - target: {fileID: 114086127046106196, guid: a190219541358b04c80d756452053666,
         type: 2}
       propertyPath: targetToShot
       value: 
-      objectReference: {fileID: 1281785063}
+      objectReference: {fileID: 0}
     - target: {fileID: 1142078655035224, guid: a190219541358b04c80d756452053666, type: 2}
       propertyPath: m_IsActive
       value: 1
@@ -370,6 +364,11 @@ Prefab:
     - target: {fileID: 114086127046106196, guid: a190219541358b04c80d756452053666,
         type: 2}
       propertyPath: debugMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114086127046106196, guid: a190219541358b04c80d756452053666,
+        type: 2}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -433,11 +432,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1bc0a41e7e1f9a4cabd4891d382c89b, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &1281785063 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1636323673256124, guid: b1bc0a41e7e1f9a4cabd4891d382c89b,
-    type: 2}
-  m_PrefabInternal: {fileID: 1247238380}
 --- !u!1 &1877266091
 GameObject:
   m_ObjectHideFlags: 0
