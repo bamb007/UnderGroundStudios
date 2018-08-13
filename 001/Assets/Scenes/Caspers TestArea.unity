@@ -145,25 +145,25 @@ MonoBehaviour:
   - items:
     - {fileID: 1950787501148968, guid: 199e67e9333374441b47571e9c9a503b, type: 2}
     - {fileID: 1781738206627724, guid: a994fe06d337d764384104726c216e18, type: 2}
-    probabilityWeight: 100
-    probabilityPercent: 0
+    probabilityWeight: 450
+    probabilityPercent: 81.818184
     active: 1
     probabilityRangeFrom: 0
-    probabilityRangeTo: 0
+    probabilityRangeTo: 450
   - items:
     - {fileID: 0}
-    probabilityWeight: 100
-    probabilityPercent: 0
+    probabilityWeight: 50
+    probabilityPercent: 9.090909
     active: 1
-    probabilityRangeFrom: 0
-    probabilityRangeTo: 0
+    probabilityRangeFrom: 450
+    probabilityRangeTo: 500
   - items:
     - {fileID: 1781738206627724, guid: a994fe06d337d764384104726c216e18, type: 2}
-    probabilityWeight: 100
-    probabilityPercent: 0
+    probabilityWeight: 50
+    probabilityPercent: 9.090909
     active: 1
-    probabilityRangeFrom: 0
-    probabilityRangeTo: 0
+    probabilityRangeFrom: 500
+    probabilityRangeTo: 550
 --- !u!212 &410662999
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -364,7 +364,7 @@ Prefab:
     - target: {fileID: 114086127046106196, guid: a190219541358b04c80d756452053666,
         type: 2}
       propertyPath: debugMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114086127046106196, guid: a190219541358b04c80d756452053666,
         type: 2}

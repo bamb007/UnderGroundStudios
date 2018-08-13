@@ -23,23 +23,64 @@ public class ItemsToDrop
 
 public class MyLootTable : MonoBehaviour
 {
-
-
     public List<ItemsToDrop> lootTable;
 
     // Sum of all weights of items.
     float probabilityTotalWeight;
-    private ItemsToDrop test;
 
     // Use this for initialization
     void Start()
     {
-
+        PickLootDropItem();
     }
 
     // Update is called once per frame
     void Update()
     {
+
+    }
+
+    public void OnValidate()
+    {
+        LootTableCheck();
+    }
+
+    public void LootTableCheck()
+    {
+        #region Checking weight on all items in loottable
+
+        if (lootTable != null && lootTable.Count > 0)
+        {
+            float currentProbabilityWeightMaximum = 0f;
+
+            foreach (ItemsToDrop itd in lootTable)
+            {
+                if (itd.probabilityWeight < 0f)
+                {
+                    // Prevent usage of negative weight.
+                    Debug.Log("You can't have negative weight on an item. Reseting item's weight to 0.");
+                    itd.probabilityWeight = 0f;
+                }
+                else
+                {
+                    itd.probabilityRangeFrom = currentProbabilityWeightMaximum;
+                    currentProbabilityWeightMaximum += itd.probabilityWeight;
+                    itd.probabilityRangeTo = currentProbabilityWeightMaximum;
+                }
+            }
+
+            probabilityTotalWeight = currentProbabilityWeightMaximum;
+
+            // Calculate percentage of item drop select rate.
+            foreach (ItemsToDrop itd in lootTable)
+            {
+                itd.probabilityPercent = ((itd.probabilityWeight) / probabilityTotalWeight) * 100;
+            }
+        }
+        #endregion
+
+        #region Code to acces all variable in list
+        /*
         if (Input.GetKeyDown(KeyCode.Q))
         {
             GameObject g1;
@@ -78,6 +119,31 @@ public class MyLootTable : MonoBehaviour
                     }
                 }
             }
-        }
+            */
+        #endregion
     }
+
+    //Picks a number there is used to drop a item
+    public ItemsToDrop PickLootDropItem()
+    {
+        float pickedNumber = Random.Range(0, probabilityTotalWeight);
+
+        // Find an item whose range contains pickedNumber
+        foreach (ItemsToDrop itd in lootTable)
+        {
+            // If the picked number matches the item's range, return item
+            if (pickedNumber > itd.probabilityRangeFrom && pickedNumber < itd.probabilityRangeTo)
+            {
+                Debug.Log(itd);
+
+                return itd;
+            }
+        }
+
+        // If item wasn't picked... Notify programmer via console and return the first item from the list
+        Debug.LogError("Item couldn't be picked... Be sure that all of your active loot drop tables have assigned at least one item!");
+        return lootTable[0];
+    }
+
 }
+
