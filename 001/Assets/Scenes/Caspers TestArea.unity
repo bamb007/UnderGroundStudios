@@ -144,26 +144,26 @@ MonoBehaviour:
   lootTable:
   - items:
     - {fileID: 1950787501148968, guid: 199e67e9333374441b47571e9c9a503b, type: 2}
-    - {fileID: 1781738206627724, guid: a994fe06d337d764384104726c216e18, type: 2}
-    probabilityWeight: 450
-    probabilityPercent: 81.818184
+    - {fileID: 1950787501148968, guid: 199e67e9333374441b47571e9c9a503b, type: 2}
+    probabilityWeight: 50
+    probabilityPercent: 33.333332
     active: 1
     probabilityRangeFrom: 0
-    probabilityRangeTo: 450
+    probabilityRangeTo: 50
   - items:
-    - {fileID: 0}
+    - {fileID: 1928390012104016, guid: ec416441f786208418ed819f61a69403, type: 2}
     probabilityWeight: 50
-    probabilityPercent: 9.090909
+    probabilityPercent: 33.333332
     active: 1
-    probabilityRangeFrom: 450
-    probabilityRangeTo: 500
+    probabilityRangeFrom: 50
+    probabilityRangeTo: 100
   - items:
     - {fileID: 1781738206627724, guid: a994fe06d337d764384104726c216e18, type: 2}
     probabilityWeight: 50
-    probabilityPercent: 9.090909
+    probabilityPercent: 33.333332
     active: 1
-    probabilityRangeFrom: 500
-    probabilityRangeTo: 550
+    probabilityRangeFrom: 100
+    probabilityRangeTo: 150
 --- !u!212 &410662999
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -359,7 +359,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1142078655035224, guid: a190219541358b04c80d756452053666, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114086127046106196, guid: a190219541358b04c80d756452053666,
         type: 2}

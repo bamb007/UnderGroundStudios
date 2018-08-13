@@ -126,15 +126,40 @@ public class MyLootTable : MonoBehaviour
     //Picks a number there is used to drop a item
     public ItemsToDrop PickLootDropItem()
     {
+        //Test gameobjects
+        GameObject g1;
+        GameObject g2;
+        //EndTest
+
         float pickedNumber = Random.Range(0, probabilityTotalWeight);
 
+        Debug.Log(pickedNumber);
+        
         // Find an item whose range contains pickedNumber
         foreach (ItemsToDrop itd in lootTable)
         {
             // If the picked number matches the item's range, return item
             if (pickedNumber > itd.probabilityRangeFrom && pickedNumber < itd.probabilityRangeTo)
             {
-                Debug.Log(itd);
+                //Test
+                g1 = null;
+                g2 = null;
+
+                foreach (GameObject go in itd.items)
+                {
+                    if (g1 == null)
+                    {
+                        g1 = go;
+                    }
+                    else if (g2 == null)
+                    {
+                        g2 = go;
+                    }
+                }
+                Debug.Log(g1 + "\n" + g2);
+                //EndTest
+
+                Debug.Log(itd.items.Length);
 
                 return itd;
             }
@@ -145,5 +170,16 @@ public class MyLootTable : MonoBehaviour
         return lootTable[0];
     }
 
+    /*
+    void DropLootNearChest(int numItemsToDrop)
+    {
+        for (int i = 0; i < numItemsToDrop; i++)
+        {
+            ItemsToDrop selectedItem = PickLootDropItem();
+            GameObject selectedItemGameObject = Instantiate(selectedItem.items);
+            selectedItemGameObject.transform.position = new Vector2(i / 2f, 0f);
+        }
+    }
+    */
 }
 
