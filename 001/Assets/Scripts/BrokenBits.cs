@@ -38,7 +38,7 @@ public class BrokenBits : MonoBehaviour
 
         for (int i = 0; i < bodies.Length; i++)
         {
-            bodies[i].AddForce(new Vector2(Random.Range(0, 20), Random.Range(0, 20)), ForceMode2D.Impulse);
+            bodies[i].AddForce(new Vector2(Random.Range(-20, 20), Random.Range(-20, 20)), ForceMode2D.Impulse);
         }
 
     }
