@@ -25,18 +25,21 @@ public class MyLootTable : MonoBehaviour
 {
     public List<ItemsToDrop> lootTable;
 
+    [SerializeField] private int numOfItemsToDrop;
+
     // Sum of all weights of items.
     float probabilityTotalWeight;
 
     // Use this for initialization
     void Start()
     {
-        PickLootDropItem();
+        SpawnItem(numOfItemsToDrop);
     }
 
     // Update is called once per frame
     void Update()
     {
+
 
     }
 
@@ -157,9 +160,10 @@ public class MyLootTable : MonoBehaviour
                     }
                 }
                 Debug.Log(g1 + "\n" + g2);
+                Debug.Log(itd.items.Length);
                 //EndTest
 
-                Debug.Log(itd.items.Length);
+                
 
                 return itd;
             }
@@ -170,6 +174,19 @@ public class MyLootTable : MonoBehaviour
         return lootTable[0];
     }
 
+    void SpawnItem(int numItemsToDrop)
+    {
+        for (int i = 0; i < numItemsToDrop; i++)
+        {
+            ItemsToDrop selectedDrop = PickLootDropItem();
+
+            if (selectedDrop.items.Length > 0)
+            {
+                GameObject selectedItemGameObject = Instantiate(selectedDrop.items[0]);
+                selectedItemGameObject.transform.position = new Vector2(i / 2f, 0);
+            }
+        }
+    }
     /*
     void DropLootNearChest(int numItemsToDrop)
     {
