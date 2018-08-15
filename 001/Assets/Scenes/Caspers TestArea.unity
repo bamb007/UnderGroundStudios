@@ -141,29 +141,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b1059d827b450347b617b965728c1ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugMode: 0
   lootTable:
   - items:
     - {fileID: 1950787501148968, guid: 199e67e9333374441b47571e9c9a503b, type: 2}
-    probabilityWeight: 50
-    probabilityPercent: 33.333332
+    - {fileID: 1950787501148968, guid: 199e67e9333374441b47571e9c9a503b, type: 2}
+    probabilityWeight: 25
+    probabilityPercent: 25
     active: 1
+    permaUse: 1
     probabilityRangeFrom: 0
+    probabilityRangeTo: 25
+  - items:
+    - {fileID: 1940753160544584, guid: ec416441f786208418ed819f61a69403, type: 2}
+    probabilityWeight: 25
+    probabilityPercent: 25
+    active: 1
+    permaUse: 1
+    probabilityRangeFrom: 25
     probabilityRangeTo: 50
   - items:
-    - {fileID: 1928390012104016, guid: ec416441f786208418ed819f61a69403, type: 2}
-    probabilityWeight: 50
-    probabilityPercent: 33.333332
+    - {fileID: 1844446948389302, guid: 23fa6d308bbddf24dbfd4ac1fde3b617, type: 2}
+    probabilityWeight: 25
+    probabilityPercent: 25
     active: 1
+    permaUse: 1
     probabilityRangeFrom: 50
-    probabilityRangeTo: 100
+    probabilityRangeTo: 75
   - items:
-    - {fileID: 1781738206627724, guid: a994fe06d337d764384104726c216e18, type: 2}
-    probabilityWeight: 50
-    probabilityPercent: 33.333332
+    - {fileID: 0}
+    probabilityWeight: 25
+    probabilityPercent: 25
     active: 1
-    probabilityRangeFrom: 100
-    probabilityRangeTo: 150
-  numOfItemsToDrop: 5
+    permaUse: 1
+    probabilityRangeFrom: 75
+    probabilityRangeTo: 100
+  numOfItemsToDrop: 1
+  x: 0
+  y: 0
 --- !u!212 &410662999
 SpriteRenderer:
   m_ObjectHideFlags: 0

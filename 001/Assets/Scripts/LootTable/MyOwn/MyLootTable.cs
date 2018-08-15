@@ -15,6 +15,8 @@ public class ItemsToDrop
 
     public bool active;
 
+    public bool permaUse;
+
     [HideInInspector]
     public float probabilityRangeFrom;
     [HideInInspector]
@@ -23,9 +25,21 @@ public class ItemsToDrop
 
 public class MyLootTable : MonoBehaviour
 {
+    [Header("DebugMode")]
+    [SerializeField] private bool debugMode;
+    [Space(10)]
+
+    [Header("LootTable")]
     public List<ItemsToDrop> lootTable;
 
     [SerializeField] private int numOfItemsToDrop;
+    [Space(10)]
+
+    [Header("Spawn location offset")]
+
+    [SerializeField] private float x;
+    [SerializeField] private float y;
+    [Space(10)]
 
     // Sum of all weights of items.
     float probabilityTotalWeight;
@@ -33,16 +47,20 @@ public class MyLootTable : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        SpawnItem(numOfItemsToDrop);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
-
+        //Used to testing
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            SpawnItem(numOfItemsToDrop);
+        }
     }
 
+    //Keeps it updated in inspector
     public void OnValidate()
     {
         LootTableCheck();
@@ -56,13 +74,29 @@ public class MyLootTable : MonoBehaviour
         {
             float currentProbabilityWeightMaximum = 0f;
 
+            int deleteIfNoItemFound = 0;
+
             foreach (ItemsToDrop itd in lootTable)
             {
-                if (itd.probabilityWeight < 0f)
+                if (itd.probabilityWeight < 0f || itd.active == false)
                 {
                     // Prevent usage of negative weight.
-                    Debug.Log("You can't have negative weight on an item. Reseting item's weight to 0.");
+                    if (debugMode)
+                    {
+                        Debug.Log("You can't have negative weight on an item or item inactive. Reseting item's weight to 0.");
+                    }
+
                     itd.probabilityWeight = 0f;
+                    deleteIfNoItemFound += 1;
+
+                    if (deleteIfNoItemFound == lootTable.Count)
+                    {
+                        if (debugMode)
+                        {
+                            Debug.Log("Destroy the loottable script");
+                        }
+                        Destroy(this);
+                    }
                 }
                 else
                 {
@@ -127,24 +161,29 @@ public class MyLootTable : MonoBehaviour
     }
 
     //Picks a number there is used to drop a item
-    public ItemsToDrop PickLootDropItem()
+    private ItemsToDrop PickLootDropItem()
     {
-        //Test gameobjects
+        #region Test debug
         GameObject g1;
         GameObject g2;
-        //EndTest
+        #endregion
 
         float pickedNumber = Random.Range(0, probabilityTotalWeight);
 
         Debug.Log(pickedNumber);
-        
+
+        if (debugMode)
+        {
+            Debug.Log("Number used to pick a item: " + pickedNumber);
+        }
+
         // Find an item whose range contains pickedNumber
         foreach (ItemsToDrop itd in lootTable)
         {
             // If the picked number matches the item's range, return item
-            if (pickedNumber > itd.probabilityRangeFrom && pickedNumber < itd.probabilityRangeTo)
+            if (pickedNumber > itd.probabilityRangeFrom && pickedNumber < itd.probabilityRangeTo && itd.active)
             {
-                //Test
+                #region Test debug
                 g1 = null;
                 g2 = null;
 
@@ -159,18 +198,24 @@ public class MyLootTable : MonoBehaviour
                         g2 = go;
                     }
                 }
-                Debug.Log(g1 + "\n" + g2);
-                Debug.Log(itd.items.Length);
-                //EndTest
+                if (debugMode)
+                {
+                    Debug.Log(g1 + "\n" + g2);
+                    Debug.Log(itd.items.Length);
+                }
 
-                
+                #endregion
 
                 return itd;
             }
         }
 
         // If item wasn't picked... Notify programmer via console and return the first item from the list
-        Debug.LogError("Item couldn't be picked... Be sure that all of your active loot drop tables have assigned at least one item!");
+        if (debugMode)
+        {
+            Debug.LogError("Item couldn't be picked... Be sure that all of your active loot drop tables have assigned at least one item!");
+        }
+
         return lootTable[0];
     }
 
@@ -180,23 +225,37 @@ public class MyLootTable : MonoBehaviour
         {
             ItemsToDrop selectedDrop = PickLootDropItem();
 
-            if (selectedDrop.items.Length > 0)
+            if (!selectedDrop.permaUse)
             {
-                GameObject selectedItemGameObject = Instantiate(selectedDrop.items[0]);
-                selectedItemGameObject.transform.position = new Vector2(i / 2f, 0);
+                selectedDrop.active = false;
+            }
+
+            if (selectedDrop.items.Length > 0 && selectedDrop.items[0] != null)
+            {
+                for (int j = 0; j < selectedDrop.items.Length; j++)
+                {
+                    GameObject selectedItemGameObject = Instantiate(selectedDrop.items[j]);
+                    selectedItemGameObject.transform.position = new Vector2(this.transform.position.x + x, this.transform.position.y + y);
+                    
+                    //Used to spawn objects in middle with distance
+                    //selectedItemGameObject.transform.position = new Vector2((i + j) / 2f, 0);
+                    
+                }
+            }
+            else
+            {
+                if (debugMode)
+                {
+                    Debug.Log("Selected item does not contain a gameobject and does not work");
+                }
+            }
+
+            if (!selectedDrop.permaUse)
+            {
+                selectedDrop.active = false;
+                LootTableCheck();
             }
         }
     }
-    /*
-    void DropLootNearChest(int numItemsToDrop)
-    {
-        for (int i = 0; i < numItemsToDrop; i++)
-        {
-            ItemsToDrop selectedItem = PickLootDropItem();
-            GameObject selectedItemGameObject = Instantiate(selectedItem.items);
-            selectedItemGameObject.transform.position = new Vector2(i / 2f, 0f);
-        }
-    }
-    */
 }
 
