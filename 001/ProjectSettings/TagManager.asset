@@ -11,6 +11,7 @@ TagManager:
   - Pickup
   - Cube
   - Crate
+  - Inventory
   layers:
   - Default
   - TransparentFX
