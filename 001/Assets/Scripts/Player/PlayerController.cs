@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
 
     public Animator anim;
     [SerializeField]
@@ -37,12 +39,40 @@ public class PlayerController : MonoBehaviour {
     [SerializeField]
     private Projectile projectileAttack;
 
+    public RectTransform healthTransform;
+    private float cachedY;
+    private float minXValue;
+    private float maxXValue;
+    private int currentHealth;
+
+    private int CurrentHealth
+    {
+        get { return currentHealth; }
+        set
+        {
+            currentHealth = value;
+            HandleHealth();
+        }
+    }
+
+    public int maxHealth;
+    public Image visualHealth;
+    public Text healthText;
+    public float coolDown;
+    private bool onCD;
+
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
 
         anim = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
-	}
+        cachedY = healthTransform.position.y;
+        maxXValue = healthTransform.position.x;
+        minXValue = healthTransform.position.x - healthTransform.rect.width;
+        currentHealth = maxHealth;
+        onCD = false;
+    }
 
     private void FixedUpdate()
     {
@@ -58,7 +88,8 @@ public class PlayerController : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
 
         velX = Input.GetAxisRaw("Horizontal");
         velY = rb2d.velocity.y;
@@ -113,6 +144,30 @@ public class PlayerController : MonoBehaviour {
         Attack();
     }
 
+    private void HandleHealth()
+    {
+        healthText.text = "Health: " + currentHealth;
+        float currentXValue = MapValue(currentHealth, 0, maxHealth, minXValue, maxXValue);
+
+        healthTransform.position = new Vector3(currentXValue, cachedY);
+
+        if (currentHealth > maxHealth / 2)
+        {
+            visualHealth.color = new Color32((byte)MapValue(currentHealth, maxHealth / 2, maxHealth, 255, 0), 255, 0, 255);
+        }
+        else
+        {
+            visualHealth.color = new Color32(255, (byte)MapValue(currentHealth, 0, maxHealth / 2, 0, 255), 0, 255);
+        }
+    }
+
+    IEnumerator CoolDownDmg()
+    {
+        onCD = true;
+        yield return new WaitForSeconds(coolDown);
+        onCD = false;
+    }
+
     private void LateUpdate()
     {
         Vector3 localScale = transform.localScale;
@@ -158,9 +213,18 @@ public class PlayerController : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Cube")
+        if (collision.gameObject.name == "Cube")
         {
-            hobj.enabled = true;
+            if (!onCD && currentHealth > 0)
+            {
+                StartCoroutine(CoolDownDmg());
+                CurrentHealth -= 10;
+            }
         }
+    }
+
+    private float MapValue(float x, float inMin, float inMax, float outMin, float outMax)
+    {
+        return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
     }
 }
