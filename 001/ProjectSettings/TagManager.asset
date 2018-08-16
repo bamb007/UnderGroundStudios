@@ -11,6 +11,7 @@ TagManager:
   - Pickup
   - Cube
   - Crate
+  - brick
   layers:
   - Default
   - TransparentFX
