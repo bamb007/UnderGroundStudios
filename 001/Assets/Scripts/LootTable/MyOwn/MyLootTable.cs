@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class ItemsToDrop
 {
-    public GameObject[] items;
+    public PickUpItem[] items;
 
     // How many units the item takes - more units, higher chance of being picked
     public float probabilityWeight;
@@ -13,9 +13,13 @@ public class ItemsToDrop
     // Displayed only as an information for the designer/programmer. Should not be set manually via inspector!    
     public float probabilityPercent;
 
+    public int minAmount;
+    public int maxAmount;
+
     public bool active;
 
     public bool permaUse;
+
 
     [HideInInspector]
     public float probabilityRangeFrom;
@@ -47,7 +51,6 @@ public class MyLootTable : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
     }
 
     // Update is called once per frame
@@ -164,8 +167,8 @@ public class MyLootTable : MonoBehaviour
     private ItemsToDrop PickLootDropItem()
     {
         #region Test debug
-        GameObject g1;
-        GameObject g2;
+        PickUpItem g1;
+        PickUpItem g2;
         #endregion
 
         float pickedNumber = Random.Range(0, probabilityTotalWeight);
@@ -187,7 +190,7 @@ public class MyLootTable : MonoBehaviour
                 g1 = null;
                 g2 = null;
 
-                foreach (GameObject go in itd.items)
+                foreach (PickUpItem go in itd.items)
                 {
                     if (g1 == null)
                     {
@@ -234,8 +237,14 @@ public class MyLootTable : MonoBehaviour
             {
                 for (int j = 0; j < selectedDrop.items.Length; j++)
                 {
-                    GameObject selectedItemGameObject = Instantiate(selectedDrop.items[j]);
+                    //Gets a random amount from the items min and max range
+                    int amount = Random.Range(selectedDrop.minAmount, selectedDrop.maxAmount + 1); 
+
+                    var selectedItemGameObject = Instantiate(selectedDrop.items[j]);
+                    //Transfer variables to the pickupobject
+                    selectedItemGameObject.amount = amount;                                    
                     selectedItemGameObject.transform.position = new Vector2(this.transform.position.x + x, this.transform.position.y + y);
+                    
                     
                     //Used to spawn objects in middle with distance
                     //selectedItemGameObject.transform.position = new Vector2((i + j) / 2f, 0);

@@ -144,26 +144,32 @@ MonoBehaviour:
   debugMode: 0
   lootTable:
   - items:
-    - {fileID: 1950787501148968, guid: 199e67e9333374441b47571e9c9a503b, type: 2}
-    - {fileID: 1950787501148968, guid: 199e67e9333374441b47571e9c9a503b, type: 2}
+    - {fileID: 114350493997870578, guid: 199e67e9333374441b47571e9c9a503b, type: 2}
+    - {fileID: 114350493997870578, guid: 199e67e9333374441b47571e9c9a503b, type: 2}
     probabilityWeight: 25
     probabilityPercent: 25
+    minAmount: 1
+    maxAmount: 2
     active: 1
     permaUse: 1
     probabilityRangeFrom: 0
     probabilityRangeTo: 25
   - items:
-    - {fileID: 1940753160544584, guid: ec416441f786208418ed819f61a69403, type: 2}
+    - {fileID: 114308875036249998, guid: ec416441f786208418ed819f61a69403, type: 2}
     probabilityWeight: 25
     probabilityPercent: 25
+    minAmount: 1
+    maxAmount: 2
     active: 1
     permaUse: 1
     probabilityRangeFrom: 25
     probabilityRangeTo: 50
   - items:
-    - {fileID: 1844446948389302, guid: 23fa6d308bbddf24dbfd4ac1fde3b617, type: 2}
+    - {fileID: 114365837955306728, guid: 23fa6d308bbddf24dbfd4ac1fde3b617, type: 2}
     probabilityWeight: 25
     probabilityPercent: 25
+    minAmount: 1
+    maxAmount: 2
     active: 1
     permaUse: 1
     probabilityRangeFrom: 50
@@ -172,6 +178,8 @@ MonoBehaviour:
     - {fileID: 0}
     probabilityWeight: 25
     probabilityPercent: 25
+    minAmount: 0
+    maxAmount: 0
     active: 1
     permaUse: 1
     probabilityRangeFrom: 75

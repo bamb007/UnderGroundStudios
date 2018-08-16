@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickUpItem : MonoBehaviour {
+public class PickUpItem : MonoBehaviour
+{
+    public int amount;
 
 	// Use this for initialization
 	void Start () {
@@ -19,6 +21,7 @@ public class PickUpItem : MonoBehaviour {
     {
         if(other.gameObject.CompareTag("Player"))
         {
+            Debug.Log("This amount is: " + amount);
             Destroy(gameObject);
         }
     }
