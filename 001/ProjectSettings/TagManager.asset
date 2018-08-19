@@ -12,6 +12,7 @@ TagManager:
   - Cube
   - Crate
   - Inventory
+  - AchievementList
   layers:
   - Default
   - TransparentFX
