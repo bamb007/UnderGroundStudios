@@ -11,7 +11,8 @@ TagManager:
   - Pickup
   - Cube
   - Crate
-  - brick
+  - Inventory
+  - AchievementList
   layers:
   - Default
   - TransparentFX

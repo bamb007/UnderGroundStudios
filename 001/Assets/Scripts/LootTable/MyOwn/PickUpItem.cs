@@ -7,12 +7,12 @@ public class PickUpItem : MonoBehaviour
     public int amount;
 
 	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
+	void Start ()
+    {
+    }
+
+    // Update is called once per frame
+    void Update ()
     {
 		
 	}
