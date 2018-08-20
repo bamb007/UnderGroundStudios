@@ -39,38 +39,23 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Projectile projectileAttack;
 
-    public RectTransform healthTransform;
-    private float cachedY;
-    private float minXValue;
-    private float maxXValue;
+    [SerializeField]
+    private Progress_Bar healthBar;
+    
     private int currentHealth;
-
-    private int CurrentHealth
-    {
-        get { return currentHealth; }
-        set
-        {
-            currentHealth = value;
-            HandleHealth();
-        }
-    }
-
     public int maxHealth;
-    public Image visualHealth;
-    public Text healthText;
     public float coolDown;
     private bool onCD;
-
+    
     // Use this for initialization
     void Start()
     {
 
         anim = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
-        cachedY = healthTransform.position.y;
-        maxXValue = healthTransform.position.x;
-        minXValue = healthTransform.position.x - healthTransform.rect.width;
         currentHealth = maxHealth;
+        healthBar.Max = maxHealth;
+        healthBar.Value = currentHealth;
         onCD = false;
     }
 
@@ -144,6 +129,7 @@ public class PlayerController : MonoBehaviour
         Attack();
     }
 
+    /*
     private void HandleHealth()
     {
         healthText.text = "Health: " + currentHealth;
@@ -160,6 +146,7 @@ public class PlayerController : MonoBehaviour
             visualHealth.color = new Color32(255, (byte)MapValue(currentHealth, 0, maxHealth / 2, 0, 255), 0, 255);
         }
     }
+    */
 
     IEnumerator CoolDownDmg()
     {
@@ -167,6 +154,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(coolDown);
         onCD = false;
     }
+    
 
     private void LateUpdate()
     {
@@ -218,13 +206,15 @@ public class PlayerController : MonoBehaviour
             if (!onCD && currentHealth > 0)
             {
                 StartCoroutine(CoolDownDmg());
-                CurrentHealth -= 10;
+                currentHealth -= 10;
+                healthBar.Value = currentHealth;
             }
         }
     }
-
+    /*
     private float MapValue(float x, float inMin, float inMax, float outMin, float outMax)
     {
         return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
     }
+    */
 }
