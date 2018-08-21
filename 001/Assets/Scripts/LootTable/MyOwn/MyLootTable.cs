@@ -222,7 +222,7 @@ public class MyLootTable : MonoBehaviour
         return lootTable[0];
     }
 
-    void SpawnItem(int numItemsToDrop)
+    public void SpawnItem(int numItemsToDrop)
     {
         for (int i = 0; i < numItemsToDrop; i++)
         {

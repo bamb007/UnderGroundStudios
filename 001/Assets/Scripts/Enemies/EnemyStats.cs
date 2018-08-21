@@ -6,7 +6,7 @@ public class EnemyStats : MonoBehaviour {
 
     public float health;
 
-    public float damage;
+    public int damage;
 
     public float movementSpeed;
 
@@ -31,6 +31,12 @@ public class EnemyStats : MonoBehaviour {
 
     private void Death()
     {
+        gameObject.GetComponent<MyLootTable>().SpawnItem(1);
         Destroy(gameObject);
+    }
+
+    public void TakeDamage(int dmg)
+    {
+        health -= dmg;
     }
 }

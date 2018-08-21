@@ -13,11 +13,11 @@ public class Projectile : MonoBehaviour
 
     [Header("ProjectileStats")]
     //Finds the players stats
-    private PlayerMovement playerStats;
+    private PlayerController playerStats;
 
     public float projectileSpeed;
 
-    public float damage;
+    public int damage;
 
     public float destroyTime;
 
@@ -33,7 +33,7 @@ public class Projectile : MonoBehaviour
         //Finds the player
         player = GameObject.FindGameObjectWithTag("Player");
 
-        playerStats = player.GetComponent<PlayerMovement>();
+        playerStats = player.GetComponent<PlayerController>();
 
         //Aim bullet in player's direction.
 
@@ -64,6 +64,12 @@ public class Projectile : MonoBehaviour
             if (other.gameObject.CompareTag("Crate"))
             {
                 Destroy(gameObject);
+            }
+
+            if (other.gameObject.CompareTag("Enemy"))
+            {
+                other.gameObject.GetComponent<EnemyStats>().TakeDamage(damage);
+                Debug.Log("Projectile / enemy hit");
             }
         }
 

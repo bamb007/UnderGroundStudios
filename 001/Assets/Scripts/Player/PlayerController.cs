@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    //Test
+    public GameObject bullett;
+    public float speedt = 5.0f;
+    //Endtest
+
 
     public Animator anim;
     [SerializeField]
@@ -38,6 +43,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private Projectile projectileAttack;
+
+    [Header("HealthBar")]
 
     [SerializeField]
     private Progress_Bar healthBar;
@@ -76,6 +83,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
+        #region Movement
         velX = Input.GetAxisRaw("Horizontal");
         velY = rb2d.velocity.y;
         rb2d.velocity = new Vector2(velX * speed, velY);
@@ -125,28 +133,10 @@ public class PlayerController : MonoBehaviour
             anim.Update(0);
             anim.SetBool("jumping", true);
         }
+        #endregion
 
         Attack();
     }
-
-    /*
-    private void HandleHealth()
-    {
-        healthText.text = "Health: " + currentHealth;
-        float currentXValue = MapValue(currentHealth, 0, maxHealth, minXValue, maxXValue);
-
-        healthTransform.position = new Vector3(currentXValue, cachedY);
-
-        if (currentHealth > maxHealth / 2)
-        {
-            visualHealth.color = new Color32((byte)MapValue(currentHealth, maxHealth / 2, maxHealth, 255, 0), 255, 0, 255);
-        }
-        else
-        {
-            visualHealth.color = new Color32(255, (byte)MapValue(currentHealth, 0, maxHealth / 2, 0, 255), 0, 255);
-        }
-    }
-    */
 
     IEnumerator CoolDownDmg()
     {
@@ -181,24 +171,35 @@ public class PlayerController : MonoBehaviour
     }
 
     public void Attack()
-    {
+    {   
         if (Input.GetMouseButtonDown(0))
         {
-            var clone = Instantiate(projectileAttack, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity);
-            clone.projectileSpeed = projectileSpeed;
+            Vector2 target = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
+            Vector2 myPos = new Vector2(transform.position.x, transform.position.y + 1);
+            Vector2 direction = target - myPos;
+            direction.Normalize();
+            Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
+            var clone = Instantiate(projectileAttack, myPos, rotation);
+            clone.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
             clone.destroyTime = destroyProjectile;
-            clone.target = targetToShot;
+            clone.damage = 25;
             clone.playerProjectile = true;
-            //Instantiate(bullet, firePoint.position, firePoint.rotation);
+
             anim.SetTrigger("shoot");
         }
 
         if (Input.GetMouseButtonDown(1))
         {
             anim.SetTrigger("shoot2");
-        }
+        }        
     }
 
+    public void TakeDamage(int dmg)
+    {
+        StartCoroutine(CoolDownDmg());
+        currentHealth -= dmg;
+        healthBar.Value = currentHealth;
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.name == "Cube")
