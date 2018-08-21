@@ -50,10 +50,21 @@ public class AchievementManager : MonoBehaviour
 
         activeButton = GameObject.Find("GeneralButton").GetComponent<AchievementButton>();
 
+        #region GeneralAchievement
         CreateAchievement("General", "Press W", "Press W to unlock this", 5, 0);
         CreateAchievement("General", "Press S", "Press S to unlock this", 5, 0);
         CreateAchievement("General", "All keys", "Press all keys to unlock this", 10, 0, new string[] {"Press W","Press S"});
+        #endregion
 
+        #region OtherAchievement
+        #endregion
+
+        #region KillAchievement
+        CreateAchievement("Kill", "Slayer", "Kill 100 enemies of any type", 5, 0);
+        CreateAchievement("Kill", "Slayer II", "Kill 1000 enemies of any type", 10, 0);
+        CreateAchievement("Kill", "Slayer III", "Kill 5000 enemies of any type", 15, 0);
+        CreateAchievement("Kill", "Kill them all", "Kill 10000 enemies of any type", 20, 0);
+        #endregion
 
         achievementMenu.SetActive(false);
 
@@ -62,15 +73,21 @@ public class AchievementManager : MonoBehaviour
             achievementList.SetActive(false);
         }
 
-        activeButton.Click();        
+        //activeButton.Click();        
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
 	    if(Input.GetKeyDown(KeyCode.I))
-        {
+        {         
             achievementMenu.SetActive(!achievementMenu.activeSelf);
+            foreach (GameObject achievementList in GameObject.FindGameObjectsWithTag("AchievementList"))
+            {
+                achievementList.SetActive(false);
+            }
+
+            activeButton.Click();
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
@@ -80,6 +97,25 @@ public class AchievementManager : MonoBehaviour
         {
             EarnAchievement("Press S");
         }
+
+        #region EarnAchievements
+        if (GameManagerScript.Instance.totalKills >= 100)
+        {
+            EarnAchievement("Slayer");
+        }
+        if (GameManagerScript.Instance.totalKills >= 1000)
+        {
+            EarnAchievement("Slayer II");
+        }
+        if (GameManagerScript.Instance.totalKills >= 5000)
+        {
+            EarnAchievement("Slayer III");
+        }
+        if (GameManagerScript.Instance.totalKills >= 10000)
+        {
+            EarnAchievement("Kill them all");
+        }
+        #endregion
     }
 
     public void EarnAchievement(string title)
