@@ -16,7 +16,7 @@ public class AchievementManager : MonoBehaviour
     public GameObject achievementMenu;
 
     public GameObject visualAchievement;
-
+    
     public Dictionary<string, Achievement> achievements = new Dictionary<string, Achievement>();
 
     public Sprite unlockedSprite;
