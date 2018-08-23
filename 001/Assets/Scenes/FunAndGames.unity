@@ -515,6 +515,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   g: {fileID: 1929198071183194, guid: afc2006b9f9644e44a217bde7456d514, type: 2}
   achievement: {fileID: 0}
+  itemsFromDatabase: []
+  weaponsFromDatabase: []
 --- !u!4 &1478569941
 Transform:
   m_ObjectHideFlags: 0
