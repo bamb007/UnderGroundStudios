@@ -90,12 +90,6 @@ public class InventoryDatabase : MonoBehaviour
     private static string path;
     private static SqliteConnection connection;
 
-    //InventoryTest
-
-    public GameObject g;
-
-    public GameObject achievement;
-
     public List<ItemInfo> itemsFromDatabase;
 
     public List<WeaponInfo> weaponsFromDatabase;
@@ -104,14 +98,16 @@ public class InventoryDatabase : MonoBehaviour
 
     public List<PerkInfo> perksFromDatabase;
 
+    //InventoryTest
+
+    public GameObject g;
+
+    public GameObject achievement;
+
     //EndTest
 
     void Awake()
     {
-        //Test
-        
-        //EndTest
-
         path = Application.dataPath + "/StreamingAssets/Config.db";
         connection = new SqliteConnection(string.Format("Data Source={0};Version=3;", path));
 

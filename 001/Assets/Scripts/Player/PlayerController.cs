@@ -5,65 +5,62 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    //Test
-    public GameObject bullett;
-    public float speedt = 5.0f;
-    //Endtest
+    #region Fields
+    [Header("Restriction")]
 
+    public bool canAttack;
+    public bool canMove;
+    public bool canTakeDamage;
+
+    private bool grounded;
+
+    [Header("Other")]
 
     public Animator anim;
-    [SerializeField]
-    public float speed = 3f;
-    public float runningSpeed = 6f;
     public float velX;
     public float velY;
     bool facingRight = true;
     public Rigidbody2D rb2d;
-    public float jumpHeight;
     public Transform groundCheck;
     public float groundCheckRadius;
     public LayerMask whatIsGround;
-    private bool grounded;
-    private bool doubleJumped;
     public Transform firePoint;
-    public GameObject bullet;
     public float direction;
     public HiddenObject hobj;
 
-    [Header("Projectile stats")]
 
-    [SerializeField]
-    private float projectileSpeed;
+    //Used to get projectileStats
+    private ProjectileStats projectile;
 
-    [SerializeField]
-    private float destroyProjectile;
+    #region static PlayerController
+    private static PlayerController instance;
 
-    [SerializeField]
-    private GameObject targetToShot;
+    public static PlayerController Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = GameObject.FindObjectOfType<PlayerController>();
+            }
+            return PlayerController.instance;
+        }
+    }
+    #endregion
+    #endregion
 
-    [SerializeField]
-    private Projectile projectileAttack;
+    #region Awake / Start / Updates
+    void Awake()
+    {
+        projectile = gameObject.GetComponent<ProjectileStats>();
+        anim = GetComponent<Animator>();
+        rb2d = GetComponent<Rigidbody2D>();
+    }
 
-    [Header("HealthBar")]
-
-    [SerializeField]
-    private Progress_Bar healthBar;
-    
-    private int currentHealth;
-    public int maxHealth;
-    public float coolDown;
-    private bool onCD;
-    
     // Use this for initialization
     void Start()
     {
-
-        anim = GetComponent<Animator>();
-        rb2d = GetComponent<Rigidbody2D>();
-        currentHealth = maxHealth;
-        healthBar.Max = maxHealth;
-        healthBar.Value = currentHealth;
-        onCD = false;
+       
     }
 
     private void FixedUpdate()
@@ -86,7 +83,7 @@ public class PlayerController : MonoBehaviour
         #region Movement
         velX = Input.GetAxisRaw("Horizontal");
         velY = rb2d.velocity.y;
-        rb2d.velocity = new Vector2(velX * speed, velY);
+        rb2d.velocity = new Vector2(velX * PlayerStats.Instance.movementSpeed, velY);
 
         if (Input.GetKeyDown(KeyCode.A))
         {
@@ -96,6 +93,7 @@ public class PlayerController : MonoBehaviour
         {
             anim.SetInteger("direction", 0);
         }
+
         if (Input.GetKeyDown(KeyCode.D))
         {
             anim.SetInteger("direction", 1);
@@ -114,9 +112,10 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("running", false);
         }
 
+        #region Jump
         if (grounded)
         {
-            doubleJumped = false;
+            PlayerStats.Instance.currentJump = 0;
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && grounded)
@@ -125,27 +124,35 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("jumping", true);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && !doubleJumped && !grounded)
+        if (Input.GetKeyDown(KeyCode.Space) && PlayerStats.Instance.currentJump < PlayerStats.Instance.maxJump  && !grounded)
         {
             Jump();
-            doubleJumped = true;
+
             anim.SetBool("jumping", false);
             anim.Update(0);
             anim.SetBool("jumping", true);
         }
         #endregion
 
-        Attack();
-    }
+        #endregion
 
-    IEnumerator CoolDownDmg()
-    {
-        onCD = true;
-        yield return new WaitForSeconds(coolDown);
-        onCD = false;
-    }
-    
+        #region Attack
+        if (canAttack)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                PrimaryAttack();
+            }
 
+            if (Input.GetMouseButtonDown(1))
+            {
+                SecondaryAttack();
+            }
+        }
+        #endregion
+
+    }
+  
     private void LateUpdate()
     {
         Vector3 localScale = transform.localScale;
@@ -164,58 +171,71 @@ public class PlayerController : MonoBehaviour
 
         transform.localScale = localScale;
     }
+    #endregion
+
+    #region Functions
+
+    IEnumerator CoolDownDmg()
+    {
+        canTakeDamage = false;
+        yield return new WaitForSeconds(PlayerStats.Instance.damageImmunityTime);
+        canTakeDamage = true;
+    }
 
     public void Jump()
     {
-        rb2d.AddForce(Vector2.up * jumpHeight);
+        PlayerStats.Instance.currentJump += 1;
+
+        rb2d.AddForce(Vector2.up * PlayerStats.Instance.jumpHeight);
     }
 
-    public void Attack()
+    public void PrimaryAttack()
+    {
+        Vector2 target = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
+        Vector2 myPos = new Vector2(transform.position.x, transform.position.y + 1);
+        Vector2 direction = target - myPos;
+        direction.Normalize();
+        Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
+        var clone = Instantiate(projectile.projectileAttack, myPos, rotation);
+        clone.GetComponent<Rigidbody2D>().velocity = direction * projectile.Speed;
+        clone.destroyTime = projectile.destroyTime;
+        clone.damage = PlayerStats.Instance.damage;
+        clone.playerProjectile = projectile.playerProjectile;
+
+        anim.SetTrigger("shoot");
+    }
+
+    public void SecondaryAttack()
     {   
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector2 target = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
-            Vector2 myPos = new Vector2(transform.position.x, transform.position.y + 1);
-            Vector2 direction = target - myPos;
-            direction.Normalize();
-            Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
-            var clone = Instantiate(projectileAttack, myPos, rotation);
-            clone.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
-            clone.destroyTime = destroyProjectile;
-            clone.damage = 25;
-            clone.playerProjectile = true;
-
-            anim.SetTrigger("shoot");
-        }
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            anim.SetTrigger("shoot2");
-        }        
+        anim.SetTrigger("shoot2");     
     }
 
     public void TakeDamage(int dmg)
     {
         StartCoroutine(CoolDownDmg());
-        currentHealth -= dmg;
-        healthBar.Value = currentHealth;
+        PlayerStats.Instance.currentHealth -= dmg;
+        PlayerUI.Instance.healthBar.Value = PlayerStats.Instance.currentHealth;
+        
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.name == "Cube")
         {
-            if (!onCD && currentHealth > 0)
+            if (canTakeDamage && PlayerStats.Instance.currentHealth > 0)
             {
-                StartCoroutine(CoolDownDmg());
-                currentHealth -= 10;
-                healthBar.Value = currentHealth;
+                TakeDamage(10);
             }
         }
     }
+
+    //Can this be deleted??
     /*
     private float MapValue(float x, float inMin, float inMax, float outMin, float outMax)
     {
         return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
     }
     */
+
+    #endregion
 }
