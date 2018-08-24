@@ -61,7 +61,7 @@ public class PlayerStats : MonoBehaviour
 	// Use this for initialization
 	void Start() 
 	{
-        currentHealth = maxHealth;
+        FullHeal();
 	}
 	
 	// FixedUpdate is called just before physic update
@@ -84,6 +84,25 @@ public class PlayerStats : MonoBehaviour
 	#endregion
 
 	#region Functions
+
+    public void FullHeal()
+    {
+        //Sets the players health to max
+        currentHealth = maxHealth;
+    }
+
+    public void Heal(int heal)
+    {
+        //Heals the player after the amount healed
+        if (currentHealth + heal >= maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        else if (currentHealth + heal < maxHealth)
+        {
+            currentHealth += heal;
+        }
+    }
 
 	#endregion
 }

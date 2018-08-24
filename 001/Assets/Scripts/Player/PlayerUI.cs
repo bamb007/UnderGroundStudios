@@ -43,6 +43,7 @@ public class PlayerUI : MonoBehaviour
 	// Use this for initialization
 	void Start() 
 	{
+        //Sets the players healthbar
         healthBar.Max = PlayerStats.Instance.maxHealth;
         healthBar.Value = PlayerStats.Instance.currentHealth;
     }
