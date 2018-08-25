@@ -28,7 +28,10 @@ public class PlayerController : MonoBehaviour
     public float direction;
     public HiddenObject hobj;
 
+    [Header("SoundEffects")]
+
     public AudioSource audioS;
+    public AudioSource jumpSound;
 
     //Used to get projectileStats
     private ProjectileStats projectile;
@@ -137,13 +140,14 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && grounded)
         {
             Jump();
+            jumpSound.enabled = true;
             anim.SetBool("jumping", true);
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && PlayerStats.Instance.currentJump < PlayerStats.Instance.maxJump && !grounded)
         {
             Jump();
-
+            jumpSound.enabled = false;
             anim.SetBool("jumping", false);
             anim.Update(0);
             anim.SetBool("jumping", true);
