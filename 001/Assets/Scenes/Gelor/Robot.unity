@@ -2249,6 +2249,7 @@ GameObject:
   - component: {fileID: 1750618666}
   - component: {fileID: 1750618665}
   - component: {fileID: 1750618664}
+  - component: {fileID: 1750618673}
   - component: {fileID: 1750618672}
   - component: {fileID: 1750618671}
   - component: {fileID: 1750618670}
@@ -2287,8 +2288,6 @@ MonoBehaviour:
   firePoint: {fileID: 0}
   direction: 0
   hobj: {fileID: 0}
-  audioS: {fileID: 1137261881}
-  jumpSound: {fileID: 1357092861}
 --- !u!95 &1750618665
 Animator:
   serializedVersion: 3
@@ -2457,6 +2456,20 @@ MonoBehaviour:
   currentJump: 0
   maxJump: 1
   damageImmunityTime: 1
+--- !u!114 &1750618673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1750618663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bcf0f47cdf260c478ccef375ce239d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugmode: 0
+  audioS: {fileID: 1137261881}
+  jumpSound: {fileID: 1357092861}
 --- !u!1 &1859328046
 GameObject:
   m_ObjectHideFlags: 0

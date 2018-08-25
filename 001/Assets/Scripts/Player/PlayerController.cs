@@ -28,11 +28,6 @@ public class PlayerController : MonoBehaviour
     public float direction;
     public HiddenObject hobj;
 
-    [Header("SoundEffects")]
-
-    public AudioSource audioS;
-    public AudioSource jumpSound;
-
     //Used to get projectileStats
     private ProjectileStats projectile;
 
@@ -74,7 +69,6 @@ public class PlayerController : MonoBehaviour
         if (!grounded && temp)
         {
             anim.SetBool("jumping", false);
-
         }
 
         grounded = temp;
@@ -93,16 +87,16 @@ public class PlayerController : MonoBehaviour
         {
             if (grounded == true)
             {
-                audioS.enabled = true;
-                audioS.loop = true;
+                PlayerSound.Instance.audioS.enabled = true;
+                PlayerSound.Instance.audioS.loop = true;
             }
 
             anim.SetInteger("direction", -1);
         }
         else if (Input.GetKeyUp(KeyCode.A))
         {
-            audioS.enabled = false;
-            audioS.loop = false;
+            PlayerSound.Instance.audioS.enabled = false;
+            PlayerSound.Instance.audioS.loop = false;
             anim.SetInteger("direction", 0);
         }
 
@@ -110,15 +104,15 @@ public class PlayerController : MonoBehaviour
         {
             if (grounded == true)
             {
-                audioS.enabled = true;
-                audioS.loop = true;
+                PlayerSound.Instance.audioS.enabled = true;
+                PlayerSound.Instance.audioS.loop = true;
             }
             anim.SetInteger("direction", 1);
         }
         else if (Input.GetKeyUp(KeyCode.D))
         {
-            audioS.enabled = false;
-            audioS.loop = false;
+            PlayerSound.Instance.audioS.enabled = false;
+            PlayerSound.Instance.audioS.loop = false;
             anim.SetInteger("direction", 0);
         }
 
@@ -140,14 +134,14 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && grounded)
         {
             Jump();
-            jumpSound.enabled = true;
+            PlayerSound.Instance.jumpSound.enabled = true;
             anim.SetBool("jumping", true);
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && PlayerStats.Instance.currentJump < PlayerStats.Instance.maxJump && !grounded)
         {
             Jump();
-            jumpSound.enabled = false;
+            PlayerSound.Instance.jumpSound.enabled = false;
             anim.SetBool("jumping", false);
             anim.Update(0);
             anim.SetBool("jumping", true);
