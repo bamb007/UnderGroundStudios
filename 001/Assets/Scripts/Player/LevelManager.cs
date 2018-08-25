@@ -14,6 +14,20 @@ public class LevelManager : MonoBehaviour
     public float respawnDelay;
     private CameraController camera;
 
+    private static LevelManager instance;
+
+    public static LevelManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = GameObject.FindObjectOfType<LevelManager>();
+            }
+            return LevelManager.instance;
+        }
+    }
+
     public LevelManager()
     {
     }
