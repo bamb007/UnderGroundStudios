@@ -22,20 +22,21 @@ public class Timer : MonoBehaviour {
 	void Update () {
 
         float t = Time.time - timeSinsTheBeginning;
-        string minutes = ((int)t / 60).ToString();
-        string seconds = Mathf.Round(t % 60).ToString();
+        int minutes = (int)t / 60;
+        int seconds = (int)t % 60;
+        string minute = minutes.ToString();
+        string second = seconds.ToString();
 
-        timerText.text = "Minutes: " + minutes + " : " + "Seconds: " + seconds; 
-	}
-    /*
-    IEnumerator IncreasTime()
-    {
-        while (true)
+        if (minutes < 10)
         {
-            yield return new WaitForSeconds(1);
-            timeSinsTheBeginning++;
-
-            timerText.text = "Seconds: " + timeSinsTheBeginning;
+            minute = "0" + minute;
         }
-    }*/
+
+        if (seconds < 10)
+        {
+            second = "0" + second;
+        }
+
+        timerText.text = minute + ":" + second; 
+	}
 }
