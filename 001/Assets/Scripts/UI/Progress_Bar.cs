@@ -22,11 +22,16 @@ public class Progress_Bar : MonoBehaviour {
     private RectTransform rectTransform;
 
     [SerializeField]
+    private RectTransform animTransform;
+
+    [SerializeField]
     private Color color;
 
     [SerializeField]
     private ColorInfo[] colors;
 
+    private float animSmoothness = 750;
+    private float animValue;
     
     public int Max
     {
@@ -59,7 +64,31 @@ public class Progress_Bar : MonoBehaviour {
 	void Start () {
         width = rectTransform.sizeDelta.x;
         Resize();
+        animValue = value;
 	}
+
+    private void Update()
+    {
+        if (animValue == value)
+        {
+            animTransform.sizeDelta = new Vector2(0, rectTransform.sizeDelta.y);
+        }
+        else if (Mathf.Abs(animValue - value) < 1)
+        {
+            animValue = value;
+        }
+        else
+        {
+            float dt = 1 - Mathf.Exp(-(Time.deltaTime * 1000) / animSmoothness);
+            animValue = (value - animValue) * dt + animValue;
+
+            float procent = (float)value / (float)max;
+            animTransform.position = new Vector3(width * procent + rectTransform.position.x, animTransform.position.y, animTransform.position.z);
+
+            float animProcent = (animValue - value) / (float)max;
+            animTransform.sizeDelta = new Vector2(width * animProcent, animTransform.sizeDelta.y);
+        }
+    }
 
     private void Resize()
     {

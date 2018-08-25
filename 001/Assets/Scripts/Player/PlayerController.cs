@@ -28,6 +28,10 @@ public class PlayerController : MonoBehaviour
     public float direction;
     public HiddenObject hobj;
 
+    [Header("SoundEffects")]
+
+    public AudioSource audioS;
+    public AudioSource jumpSound;
 
     //Used to get projectileStats
     private ProjectileStats projectile;
@@ -60,7 +64,7 @@ public class PlayerController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-       
+
     }
 
     private void FixedUpdate()
@@ -87,19 +91,34 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.A))
         {
+            if (grounded == true)
+            {
+                audioS.enabled = true;
+                audioS.loop = true;
+            }
+
             anim.SetInteger("direction", -1);
         }
         else if (Input.GetKeyUp(KeyCode.A))
         {
+            audioS.enabled = false;
+            audioS.loop = false;
             anim.SetInteger("direction", 0);
         }
 
         if (Input.GetKeyDown(KeyCode.D))
         {
+            if (grounded == true)
+            {
+                audioS.enabled = true;
+                audioS.loop = true;
+            }
             anim.SetInteger("direction", 1);
         }
         else if (Input.GetKeyUp(KeyCode.D))
         {
+            audioS.enabled = false;
+            audioS.loop = false;
             anim.SetInteger("direction", 0);
         }
 
@@ -121,13 +140,14 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && grounded)
         {
             Jump();
+            jumpSound.enabled = true;
             anim.SetBool("jumping", true);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && PlayerStats.Instance.currentJump < PlayerStats.Instance.maxJump  && !grounded)
+        if (Input.GetKeyDown(KeyCode.Space) && PlayerStats.Instance.currentJump < PlayerStats.Instance.maxJump && !grounded)
         {
             Jump();
-
+            jumpSound.enabled = false;
             anim.SetBool("jumping", false);
             anim.Update(0);
             anim.SetBool("jumping", true);
@@ -152,7 +172,7 @@ public class PlayerController : MonoBehaviour
         #endregion
 
     }
-  
+
     private void LateUpdate()
     {
         Vector3 localScale = transform.localScale;
@@ -206,8 +226,8 @@ public class PlayerController : MonoBehaviour
     }
 
     public void SecondaryAttack()
-    {   
-        anim.SetTrigger("shoot2");     
+    {
+        anim.SetTrigger("shoot2");
     }
 
     public void TakeDamage(int dmg)
@@ -215,7 +235,7 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(CoolDownDmg());
         PlayerStats.Instance.currentHealth -= dmg;
         PlayerUI.Instance.healthBar.Value = PlayerStats.Instance.currentHealth;
-        
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -228,14 +248,5 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
-    //Can this be deleted??
-    /*
-    private float MapValue(float x, float inMin, float inMax, float outMin, float outMax)
-    {
-        return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
-    }
-    */
-
     #endregion
 }
