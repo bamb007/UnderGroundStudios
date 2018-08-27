@@ -17,8 +17,6 @@ public class PlayerController : MonoBehaviour
     [Header("Other")]
 
     public Animator anim;
-    public float velX;
-    public float velY;
     bool facingRight = true;
     public Rigidbody2D rb2d;
     public Transform groundCheck;
@@ -27,7 +25,8 @@ public class PlayerController : MonoBehaviour
     public Transform firePoint;
     public float direction;
     public HiddenObject hobj;
-    
+    private int lastDirection = 1;
+
     [Header("SoundEffects")]
 
     public AudioSource audioS;
@@ -84,43 +83,54 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        #region Movement
-        velX = Input.GetAxisRaw("Horizontal");
-        velY = rb2d.velocity.y;
-        rb2d.velocity = new Vector2(velX * PlayerStats.Instance.movementSpeed, velY);
+        #region Movement       
 
-        if (Input.GetKeyDown(KeyCode.A))
+        bool left = Input.GetKey(KeyCode.A);
+        bool right = Input.GetKey(KeyCode.D);
+
+        bool leftDown = Input.GetKeyDown(KeyCode.A);
+        bool rightDown = Input.GetKeyDown(KeyCode.D);
+
+        bool leftUp = Input.GetKeyUp(KeyCode.A);
+        bool rightUp = Input.GetKeyUp(KeyCode.D);
+
+        if (leftDown || rightDown)
         {
-            if (grounded == true)
+            if (left && right)
             {
-                PlayerSound.Instance.audioS.enabled = true;
-                PlayerSound.Instance.audioS.loop = true;
+                anim.SetInteger("direction", 0);
             }
-
-            anim.SetInteger("direction", -1);
-        }
-        else if (Input.GetKeyUp(KeyCode.A))
-        {
-            PlayerSound.Instance.audioS.enabled = false;
-            PlayerSound.Instance.audioS.loop = false;
-            anim.SetInteger("direction", 0);
-        }
-
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            if (grounded == true)
+            else if (leftDown)
             {
-                PlayerSound.Instance.audioS.enabled = true;
-                PlayerSound.Instance.audioS.loop = true;
+                anim.SetInteger("direction", -1);
             }
-            anim.SetInteger("direction", 1);
+            else
+            {
+                anim.SetInteger("direction", 1);
+            }
         }
-        else if (Input.GetKeyUp(KeyCode.D))
+        else if (leftUp || rightUp)
         {
-            PlayerSound.Instance.audioS.enabled = false;
-            PlayerSound.Instance.audioS.loop = false;
-            anim.SetInteger("direction", 0);
+            if (leftUp && !right || rightUp && !left)
+            {
+                anim.SetInteger("direction", 0);
+            }
+            else
+            {
+                if (left)
+                {
+                    anim.SetInteger("direction", -1);
+                }
+                else
+                {
+                    anim.SetInteger("direction", 1);
+                }
+            }
         }
+
+        // Movement
+        int direction = anim.GetInteger("direction");
+        rb2d.velocity = new Vector2(direction * PlayerStats.Instance.movementSpeed, rb2d.velocity.y);
 
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -140,14 +150,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && grounded)
         {
             Jump();
-            PlayerSound.Instance.jumpSound.enabled = true;
             anim.SetBool("jumping", true);
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && PlayerStats.Instance.currentJump < PlayerStats.Instance.maxJump && !grounded)
         {
             Jump();
-            PlayerSound.Instance.jumpSound.enabled = false;
             anim.SetBool("jumping", false);
             anim.Update(0);
             anim.SetBool("jumping", true);
@@ -180,22 +188,52 @@ public class PlayerController : MonoBehaviour
 
     private void LateUpdate()
     {
-        Vector3 localScale = transform.localScale;
-        if (velX > 0)
+        int direction = anim.GetInteger("direction");
+
+        if (direction == 0)
         {
-            facingRight = true;
+            if (lastDirection == 1)
+            {
+                facingRight = true;
+            }
+            else
+            {
+                facingRight = false;
+            }
         }
-        else if (velX < 0)
+        else if (direction == -1)
         {
+            lastDirection = -1;
             facingRight = false;
         }
-        if (((facingRight) && (localScale.x < 0)) || ((!facingRight) && (localScale.x > 0)))
+        else
         {
-            localScale.x *= -1;
+            lastDirection = 1;
+            facingRight = true;
         }
 
-        transform.localScale = localScale;
+        Vector3 localScale = transform.localScale;
+
+        if (facingRight && localScale.x < 0 || !facingRight && localScale.x > 0)
+        {
+            localScale.x *= -1;
+            transform.localScale = localScale;
+        }        
     }
+
+    private void PlayWalkSound()
+    {
+        if (this.grounded)
+        {
+            audioS.Play();
+        }
+    }
+
+    private void PlayJumpSound()
+    {
+        jumpSound.Play();
+    }
+
     #endregion
 
     #region Functions
