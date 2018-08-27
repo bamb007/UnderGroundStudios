@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
 
     public AudioSource audioS;
     public AudioSource jumpSound;
+    public AudioSource shoot;
 
     //Used to get projectileStats
     private ProjectileStats projectile;
@@ -162,6 +163,11 @@ public class PlayerController : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 PrimaryAttack();
+                shoot.enabled = true;
+            }
+            else
+            {
+                shoot.enabled = false;
             }
 
             if (Input.GetMouseButtonDown(1))
