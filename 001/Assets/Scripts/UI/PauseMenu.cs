@@ -20,10 +20,12 @@ public class PauseMenu : MonoBehaviour {
             if (gameIsPaused)
             {
                 Resume();
+                PlayerRestrictions();
             }
             else
             {
                 Pause();
+                PlayerRestrictions();
             }
         }
 	}
@@ -39,13 +41,29 @@ public class PauseMenu : MonoBehaviour {
     {
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
-        gameIsPaused = true;
+        gameIsPaused = true;     
     }
 
     public void LoadMenu()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("Main Menu");
+    }
+
+    public void PlayerRestrictions()
+    {
+        if (gameIsPaused)
+        {
+            PlayerController.Instance.canAttack = false;
+            PlayerController.Instance.canMove = false;
+            PlayerController.Instance.canTakeDamage = false;
+        }
+        else if (!gameIsPaused)
+        {
+            PlayerController.Instance.canAttack = true;
+            PlayerController.Instance.canMove = true;
+            PlayerController.Instance.canTakeDamage = true;
+        }
     }
 
     public void QuitGame()
