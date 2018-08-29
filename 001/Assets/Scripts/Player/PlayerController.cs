@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
     public float direction;
     public HiddenObject hobj;
     private int lastDirection = 1;
+    public Transform arms;
+    public Transform muzzle;
 
     [Header("SoundEffects")]
 
@@ -184,6 +186,40 @@ public class PlayerController : MonoBehaviour
         }
         #endregion
 
+        Vector2 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 origin = arms.position;
+
+        Vector2 lookDirection = target - origin;
+        lookDirection.Normalize();
+
+        if (lastDirection == -1)
+        {
+            lookDirection *= -1;
+        }
+
+        float rotation = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
+
+        if (direction != 0)
+        {
+            if (rotation < -90)
+            {
+                rotation = -90;
+            }
+
+            if (rotation > 90)
+            {
+                rotation = 90;
+            }
+        }
+        else
+        {
+            if (rotation < -90 || rotation > 90)
+            {
+                lastDirection *= -1;
+            }
+        }
+
+        arms.rotation = Quaternion.Euler(0, 0, rotation);
     }
 
     private void LateUpdate()
@@ -218,7 +254,7 @@ public class PlayerController : MonoBehaviour
         {
             localScale.x *= -1;
             transform.localScale = localScale;
-        }        
+        }
     }
 
     private void PlayWalkSound()
@@ -254,18 +290,11 @@ public class PlayerController : MonoBehaviour
 
     public void PrimaryAttack()
     {
-        Vector2 target = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
-        Vector2 myPos = new Vector2(transform.position.x, transform.position.y + 1);
-        Vector2 direction = target - myPos;
-        direction.Normalize();
-        Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
-        var clone = Instantiate(projectile.projectileAttack, myPos, rotation);
-        clone.GetComponent<Rigidbody2D>().velocity = direction * projectile.Speed;
+        Projectile clone = Instantiate(projectile.projectileAttack, muzzle.position, Quaternion.identity);
+        clone.GetComponent<Rigidbody2D>().velocity = (arms.rotation * (lastDirection == -1 ? Vector3.left : Vector3.right)) * projectile.Speed;
         clone.destroyTime = projectile.destroyTime;
         clone.damage = PlayerStats.Instance.damage;
         clone.playerProjectile = projectile.playerProjectile;
-
-        anim.SetTrigger("shoot");
     }
 
     public void SecondaryAttack()

@@ -52,15 +52,20 @@ public class LevelManager : MonoBehaviour
     public IEnumerator RespawnPlayerCO()
     {
         Instantiate(deathParticle, player.transform.position, player.transform.rotation);
-        player.enabled = false;
-        player.GetComponent<Renderer>().enabled = false;
+
+        player.gameObject.SetActive(false);
+
         camera.isFollowing = false;
+
         Debug.Log("LevelManager / Player Respawn");
         yield return new WaitForSeconds(respawnDelay);
+
         player.transform.position = currentCheckpoint.transform.position;
-        player.enabled = true;
-        player.GetComponent<Renderer>().enabled = true;
+
+        player.gameObject.SetActive(true);
+
         camera.isFollowing = true;
+
         Instantiate(respawnParticle, currentCheckpoint.transform.position, currentCheckpoint.transform.rotation);
     }
 }
