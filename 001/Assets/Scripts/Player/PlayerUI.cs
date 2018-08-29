@@ -45,7 +45,10 @@ public class PlayerUI : MonoBehaviour
 	{
         //Sets the players healthbar
         healthBar.Max = PlayerStats.Instance.maxHealth;
-        healthBar.Value = PlayerStats.Instance.currentHealth;
+        healthBar.Value = PlayerStats.Instance.maxHealth;
+
+        Debug.Log(PlayerStats.Instance.maxHealth);
+        Debug.Log(PlayerStats.Instance.currentHealth);
     }
 	
 	// FixedUpdate is called just before physic update
