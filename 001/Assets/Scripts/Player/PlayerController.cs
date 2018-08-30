@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        GetComponent<WeaponChanger>().ChangeWeapon("Weapon1");
     }
 
     private void FixedUpdate()
@@ -167,6 +167,17 @@ public class PlayerController : MonoBehaviour
         #endregion
 
         #region Attack
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            GetComponent<WeaponChanger>().ChangeWeapon("Weapon1");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            GetComponent<WeaponChanger>().ChangeWeapon("AK47");
+        }
+
         if (canAttack)
         {
             if (Input.GetMouseButtonDown(0))
