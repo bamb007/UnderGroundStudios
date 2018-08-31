@@ -13,6 +13,8 @@ TagManager:
   - Crate
   - Inventory
   - AchievementList
+  - MenuList
+  - SubMenuList
   layers:
   - Default
   - TransparentFX

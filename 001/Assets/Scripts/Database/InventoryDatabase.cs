@@ -98,11 +98,17 @@ public class InventoryDatabase : MonoBehaviour
 
     public List<PerkInfo> perksFromDatabase;
 
+    public Sprite[] sprites;
+
     //InventoryTest
 
-    public GameObject g;
+    public GameObject imageBoxPrefab;
 
-    public GameObject achievement;
+    public GameObject infoMenu;
+
+    private GameObject imageBox;
+
+    private PerkInfo imageBoxPerk;
 
     //EndTest
 
@@ -154,46 +160,44 @@ public class InventoryDatabase : MonoBehaviour
 
     private void SetInventoryItems(string parent, ItemInfo inventoryInfo)
     {
-        achievement = (GameObject)Instantiate(g);
-        achievement.transform.SetParent(GameObject.Find(parent).transform);
-        achievement.transform.localScale = new Vector3(1, 1, 1);
+        imageBox = (GameObject)Instantiate(imageBoxPrefab);
+        imageBox.transform.SetParent(GameObject.Find(parent).transform);
+        imageBox.transform.localScale = new Vector3(1, 1, 1);
 
-        achievement.transform.GetChild(0).GetComponent<Text>().text = inventoryInfo.id.ToString();
-        achievement.transform.GetChild(1).GetComponent<Text>().text = inventoryInfo.name;
-        achievement.transform.GetChild(2).GetComponent<Text>().text = inventoryInfo.description;
+        imageBox.transform.GetChild(0).GetComponent<Image>().sprite = sprites[0];
+        imageBox.transform.GetChild(1).GetComponent<Text>().text = inventoryInfo.name;
     }
 
     private void SetInventoryResources(string parent, ResourcInfo inventoryInfo)
     {
-        achievement = (GameObject)Instantiate(g);
-        achievement.transform.SetParent(GameObject.Find(parent).transform);
-        achievement.transform.localScale = new Vector3(1, 1, 1);
+        imageBox = (GameObject)Instantiate(imageBoxPrefab);
+        imageBox.transform.SetParent(GameObject.Find(parent).transform);
+        imageBox.transform.localScale = new Vector3(1, 1, 1);
 
-        achievement.transform.GetChild(0).GetComponent<Text>().text = inventoryInfo.name;
-        achievement.transform.GetChild(1).GetComponent<Text>().text = inventoryInfo.description;
-        achievement.transform.GetChild(2).GetComponent<Text>().text = SaveDatabase.ExecuteScalar<long>("SELECT Amount FROM Resources WHERE Name = \"" + inventoryInfo.name + "\";").ToString();
+        imageBox.transform.GetChild(0).GetComponent<Image>().sprite = sprites[1];
+        imageBox.transform.GetChild(1).GetComponent<Text>().text = inventoryInfo.name;
+        //imageBox.transform.GetChild(2).GetComponent<Text>().text = SaveDatabase.ExecuteScalar<long>("SELECT Amount FROM Resources WHERE Name = \"" + inventoryInfo.name + "\";").ToString();
     }
 
     private void SetInventoryWeapons(string parent, WeaponInfo inventoryInfo)
     {
-        achievement = (GameObject)Instantiate(g);
-        achievement.transform.SetParent(GameObject.Find(parent).transform);
-        achievement.transform.localScale = new Vector3(1, 1, 1);
+        imageBox = (GameObject)Instantiate(imageBoxPrefab);
+        imageBox.transform.SetParent(GameObject.Find(parent).transform);
+        imageBox.transform.localScale = new Vector3(1, 1, 1);
 
-        achievement.transform.GetChild(0).GetComponent<Text>().text = inventoryInfo.name;
-        achievement.transform.GetChild(1).GetComponent<Text>().text = inventoryInfo.description;
-        achievement.transform.GetChild(2).GetComponent<Text>().text = inventoryInfo.weaponType;
+        imageBox.transform.GetChild(0).GetComponent<Image>().sprite = sprites[2];
+        imageBox.transform.GetChild(1).GetComponent<Text>().text = inventoryInfo.name;
+      
     }
 
     private void SetInventoryPerks(string parent, PerkInfo inventoryInfo)
     {
-        achievement = (GameObject)Instantiate(g);
-        achievement.transform.SetParent(GameObject.Find(parent).transform);
-        achievement.transform.localScale = new Vector3(1, 1, 1);
+        imageBox = (GameObject)Instantiate(imageBoxPrefab);
+        imageBox.transform.SetParent(GameObject.Find(parent).transform);
+        imageBox.transform.localScale = new Vector3(1, 1, 1);
 
-        achievement.transform.GetChild(0).GetComponent<Text>().text = inventoryInfo.name;
-        achievement.transform.GetChild(1).GetComponent<Text>().text = inventoryInfo.description;
-        achievement.transform.GetChild(2).GetComponent<Text>().text = inventoryInfo.id.ToString();
+        imageBox.transform.GetChild(0).GetComponent<Image>().sprite = sprites[3];
+        imageBox.transform.GetChild(1).GetComponent<Text>().text = inventoryInfo.name;
     }
 
     private void CreateIngameInventoryFromLists()
@@ -201,26 +205,32 @@ public class InventoryDatabase : MonoBehaviour
         #region Sets up all lists to ingame images
         foreach (ItemInfo item in itemsFromDatabase)
         {
-            SetInventoryItems("Items", item);
+            SetInventoryItems("ImageBoxGridItem", item);
         }
 
         foreach (ResourcInfo item in resourcesFromDatabase)
         {
-            SetInventoryResources("Resources", item);
+            SetInventoryResources("ImageBoxGridResource", item);
         }
 
         foreach (WeaponInfo item in weaponsFromDatabase)
         {
-            SetInventoryWeapons("Weapons", item);
+            SetInventoryWeapons("ImageBoxGridWeapon", item);
         }
 
         foreach (PerkInfo item in perksFromDatabase)
         {
-            SetInventoryPerks("Perks", item);
+            SetInventoryPerks("ImageBoxGridPerk", item);
         }
         #endregion
     }
 
+    public void InfoClick()
+    {
+        infoMenu.transform.GetChild(0).GetComponent<Text>().text = 2.ToString();
+        infoMenu.transform.GetChild(1).GetComponent<Text>().text = "Something";
+        infoMenu.transform.GetChild(2).GetComponent<Text>().text = "Info";
+    }
     #endregion
 
     #region Database functions
