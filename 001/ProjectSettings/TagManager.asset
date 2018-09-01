@@ -15,6 +15,7 @@ TagManager:
   - AchievementList
   - MenuList
   - SubMenuList
+  - brick
   layers:
   - Default
   - TransparentFX
@@ -26,7 +27,7 @@ TagManager:
   - 
   - Ground
   - Player
-  - 
+  - BreakableObject
   - 
   - 
   - 
@@ -54,4 +55,13 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 3055064323
+    locked: 0
+  - name: Player
+    uniqueID: 2209220299
+    locked: 0
+  - name: BrekableObject
+    uniqueID: 2800934111
+    locked: 0
+  - name: HiddenObject
+    uniqueID: 767684501
     locked: 0
