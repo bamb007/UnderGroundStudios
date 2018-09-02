@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class FireFly : MonoBehaviour {
 
@@ -181,7 +182,7 @@ public class FireFly : MonoBehaviour {
                 clone.damage = stats.damage;
                 clone.target = targetToShot;
                 clone.enemyProjectile = true;
-
+               
                 attackDelayUse = attackDelay;
             }
 

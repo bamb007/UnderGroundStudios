@@ -28,7 +28,7 @@ TagManager:
   - Ground
   - Player
   - BreakableObject
-  - 
+  - BackGround
   - 
   - 
   - 
@@ -64,4 +64,10 @@ TagManager:
     locked: 0
   - name: HiddenObject
     uniqueID: 767684501
+    locked: 0
+  - name: Pickup
+    uniqueID: 639056245
+    locked: 0
+  - name: Enemy
+    uniqueID: 3428429819
     locked: 0

@@ -11,6 +11,12 @@ public class Projectile : MonoBehaviour
 
     public bool enemyProjectile;
 
+    [Header("Collision")]
+
+    public bool canCollideWithWall;
+
+    public LayerMask ground;
+
     [Header("ProjectileStats")]
     //Finds the players stats
     private PlayerController playerStats;
@@ -59,6 +65,14 @@ public class Projectile : MonoBehaviour
     //Collision check and action
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (canCollideWithWall)
+        {
+            if (other.IsTouchingLayers(ground))
+            {
+                Destroy(gameObject);
+            }
+        }
+
         if (playerProjectile)
         {
             if (other.gameObject.CompareTag("Crate"))

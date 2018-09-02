@@ -16,6 +16,12 @@ public class ProjectileStats : MonoBehaviour
         
     public bool enemyProjectile;
 
+    [Header("Collision")]
+
+    public bool canCollideWithWall;
+
+    public LayerMask ground;
+
     [Space(10)]
     [Header("Projectile stats")]
 

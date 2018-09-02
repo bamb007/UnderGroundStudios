@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4069200172153480}
   - component: {fileID: 198355536543781128}
   - component: {fileID: 199315842472346930}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4397465529693434}
   - component: {fileID: 198728966964919078}
   - component: {fileID: 199007751742029754}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4215517060402632}
   - component: {fileID: 198663804154993564}
   - component: {fileID: 199241409197201976}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: SparksRising
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 4100015685744136}
   - component: {fileID: 198373368323263200}
   - component: {fileID: 199623132257938886}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: SmokeDark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 4327218481036054}
   - component: {fileID: 198083543450266618}
   - component: {fileID: 199117002313642430}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: SparksFalling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 4629511470158536}
   - component: {fileID: 198620496565711928}
   - component: {fileID: 199914477303480470}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: SmokeLit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,6 +161,8 @@ GameObject:
   - component: {fileID: 114646726271393152}
   - component: {fileID: 114568086505758456}
   - component: {fileID: 114967803987309296}
+  - component: {fileID: 114714998556923466}
+  - component: {fileID: 114912137535869546}
   m_Layer: 0
   m_Name: FireFlyEnemy
   m_TagString: Enemy
@@ -201,7 +203,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1458877654853076}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.51, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4069200172153480}
@@ -273,7 +275,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1947912600090028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1, z: 0}
+  m_LocalPosition: {x: -0.083446056, y: 1.039895, z: -0.16165414}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4103873225451458}
@@ -285,9 +287,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1961817430603216}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.95, y: 0.21, z: 0}
-  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 24.288149, y: 77.64, z: 0}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_Children:
   - {fileID: 4103873225451458}
   m_Father: {fileID: 0}
@@ -379,7 +381,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 0.5992406, b: 0.27405927, a: 1}
-  m_Intensity: 2
+  m_Intensity: 0.98851466
   m_Range: 2
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -477,6 +479,51 @@ MonoBehaviour:
   projectileSpeed: 10
   destroyProjectile: 5
   targetToShot: {fileID: 0}
+--- !u!114 &114714998556923466
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1961817430603216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b1059d827b450347b617b965728c1ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugMode: 0
+  lootTable:
+  - items:
+    - {fileID: 114350493997870578, guid: 199e67e9333374441b47571e9c9a503b, type: 2}
+    probabilityWeight: 1
+    probabilityPercent: 100
+    minAmount: 1
+    maxAmount: 1
+    active: 1
+    permaUse: 1
+    probabilityRangeFrom: 0
+    probabilityRangeTo: 1
+  numOfItemsToDrop: 0
+  x: 0
+  y: 0
+--- !u!114 &114912137535869546
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1961817430603216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dfecb71835808844a1e90af50883748, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugmode: 0
+  playerProjectile: 0
+  enemyProjectile: 1
+  Speed: 10
+  destroyTime: 5
+  targetToShot: {fileID: 0}
+  projectileAttack: {fileID: 114189707640117388, guid: 5115a1f6127700c43a6f90b268cae241,
+    type: 2}
 --- !u!114 &114967803987309296
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5104,7 +5151,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 0.89411765, g: 0.54901963, b: 0.09411765, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 0.54901963}
+      maxColor: {r: 0, g: 1, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}

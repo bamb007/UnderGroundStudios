@@ -525,9 +525,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1a2ae07ac81e24e8adaf3ddc9683df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  time: 4
-  splashImage: {fileID: 0}
-  loadLevel: 0
+  time: 1
+  splashImage: {fileID: 1295380458}
+  loadLevel: 1
 --- !u!4 &2113151116
 Transform:
   m_ObjectHideFlags: 0
