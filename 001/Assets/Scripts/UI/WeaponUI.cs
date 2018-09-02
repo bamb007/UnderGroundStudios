@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WeaponUI : MonoBehaviour {
+public class WeaponUI : MonoBehaviour
+{
 
     [SerializeField]
     private Image weapon1;
@@ -11,8 +12,17 @@ public class WeaponUI : MonoBehaviour {
     [SerializeField]
     private Image aK47;
 
-    public void HighLightWeapon()
+    private void Start()
     {
+        weapon1 = GetComponent<Image>();
+        aK47 = GetComponent<Image>();
+    }
 
+    public void HighLightWeapon1(Color newColor)
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            aK47.color = Color.red;
+        }
     }
 }

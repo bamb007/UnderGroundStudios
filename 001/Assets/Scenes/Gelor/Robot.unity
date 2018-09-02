@@ -44362,6 +44362,7 @@ MonoBehaviour:
   hobj: {fileID: 0}
   arms: {fileID: 413898910}
   muzzle: {fileID: 469956593}
+  weaponUI: {fileID: 0}
   audioS: {fileID: 1137261881}
   jumpSound: {fileID: 1357092861}
   shoot: {fileID: 197187820}
