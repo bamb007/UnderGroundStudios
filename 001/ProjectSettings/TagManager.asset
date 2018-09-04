@@ -56,6 +56,9 @@ TagManager:
   - name: Background
     uniqueID: 3055064323
     locked: 0
+  - name: Pickup
+    uniqueID: 639056245
+    locked: 0
   - name: Player
     uniqueID: 2209220299
     locked: 0
@@ -65,9 +68,9 @@ TagManager:
   - name: HiddenObject
     uniqueID: 767684501
     locked: 0
-  - name: Pickup
-    uniqueID: 639056245
-    locked: 0
   - name: Enemy
     uniqueID: 3428429819
+    locked: 0
+  - name: Particle
+    uniqueID: 192797247
     locked: 0
