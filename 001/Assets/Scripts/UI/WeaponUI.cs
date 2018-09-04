@@ -7,22 +7,60 @@ public class WeaponUI : MonoBehaviour
 {
 
     [SerializeField]
-    private Image weapon1;
+    private Image slot1;
 
     [SerializeField]
-    private Image aK47;
+    private Image slot2;
+
+    [SerializeField]
+    private WeaponChanger weaponChanger;
+
+    private int selectedSlot = 1;
+
+    [SerializeField]
+    private string weapon1;
+
+    [SerializeField]
+    private string weapon2;
 
     private void Start()
     {
-        weapon1 = GetComponent<Image>();
-        aK47 = GetComponent<Image>();
-    }
-
-    public void HighLightWeapon1(Color newColor)
-    {
-        if (Input.GetKeyDown(KeyCode.C))
+        if (weapon1 != null)
         {
-            aK47.color = Color.red;
+            slot1.sprite = weaponChanger.GetWeaponTexture(weapon1);
+        }
+
+        if (weapon2 != null)
+        {
+            slot2.sprite = weaponChanger.GetWeaponTexture(weapon2);
+        }
+    }
+    
+    public void SelectSlot(int slot)
+    {
+        if (slot == 1)
+        {
+            if (weapon1 != null)
+            {
+                slot1.sprite = weaponChanger.GetWeaponTexture(weapon1);
+            }
+
+            if (weapon2 != null)
+            {
+                slot2.sprite = weaponChanger.GetWeaponTexture(weapon2);
+            }
+        }
+        else
+        {
+            if (weapon1 != null)
+            {
+                slot1.sprite = weaponChanger.GetWeaponTexture(weapon2);
+            }
+
+            if (weapon2 != null)
+            {
+                slot2.sprite = weaponChanger.GetWeaponTexture(weapon1);
+            }
         }
     }
 }

@@ -15,21 +15,31 @@ public class WeaponChanger : MonoBehaviour {
 
 	public void ChangeWeapon(string name)
     {
+        WeaponChangerInfo weaponChangerInfo = FindInfo(name);
+
+        spriteRenderer.sprite = weaponChangerInfo.sprite;
+
+        muzzleTransform.localPosition = weaponChangerInfo.muzzlePosition;
+    }
+
+    public Sprite GetWeaponTexture(string name)
+    {
+        WeaponChangerInfo weaponChangerInfo = FindInfo(name);
+
+        return weaponChangerInfo.sprite;
+    }
+
+    private WeaponChangerInfo FindInfo(string name)
+    {
         foreach (WeaponChangerInfo item in weapons)
         {
             if (item.name == name)
             {
-                ChangeWeapon(item);
-                break;
+                return item;
             }
         }
-    }
 
-    private void ChangeWeapon(WeaponChangerInfo weaponChangerInfo)
-    {
-        spriteRenderer.sprite = weaponChangerInfo.sprite;
-
-        muzzleTransform.localPosition = weaponChangerInfo.muzzlePosition;
+        throw new System.Exception("Weapon not found");
     }
 }
 

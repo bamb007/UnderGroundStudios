@@ -171,11 +171,13 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             GetComponent<WeaponChanger>().ChangeWeapon("Weapon1");
+            GetComponent<WeaponUI>().SelectSlot(1);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             GetComponent<WeaponChanger>().ChangeWeapon("AK47");
+            GetComponent<WeaponUI>().SelectSlot(2);
         }
 
         if (canAttack)
