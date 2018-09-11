@@ -9,7 +9,7 @@ public class DetectEdge : MonoBehaviour
 	[Header("DEBUG")]
 	[SerializeField] private bool debugmode;
 
-    public float speed;
+    private EnemyStats stats;
 
     public float groundDistance, frontDistance;
 
@@ -24,7 +24,7 @@ public class DetectEdge : MonoBehaviour
     // Use this for initialization before game start
     void Awake()
 	{
-		
+        stats = GetComponent<EnemyStats>();
 	}
 
 	// Use this for initialization
@@ -50,7 +50,7 @@ public class DetectEdge : MonoBehaviour
 	{
 
         #region RayCast
-        transform.Translate(Vector2.right * speed * Time.deltaTime);
+        transform.Translate(Vector2.right * stats.movementSpeed * Time.deltaTime);
 
         RaycastHit2D groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, groundDistance);
         if (groundInfo.collider == false)
