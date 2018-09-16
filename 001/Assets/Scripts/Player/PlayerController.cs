@@ -28,6 +28,9 @@ public class PlayerController : MonoBehaviour
     private int lastDirection = 1;
     public Transform arms;
     public Transform muzzle;
+    public bool sliding = false;
+    public float slidingTime = 0;
+    public float maxSlidingTime = 1.5f;
 
     [Header("SoundEffects")]
 
@@ -141,6 +144,31 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetKeyUp(KeyCode.R))
         {
             anim.SetBool("running", false);
+        }
+
+        if (Input.GetButtonDown("Slide") && !sliding)
+        {
+            slidingTime = 0f;
+
+            anim.SetBool("isSliding", true);
+
+            gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
+
+            sliding = true;
+        }
+
+        if (sliding)
+        {
+            slidingTime += Time.deltaTime;
+
+            if (slidingTime > maxSlidingTime)
+            {
+                sliding = false;
+
+                anim.SetBool("isSliding", false);
+
+                gameObject.GetComponent<CapsuleCollider2D>().enabled = true;
+            }
         }
 
         #region Jump
