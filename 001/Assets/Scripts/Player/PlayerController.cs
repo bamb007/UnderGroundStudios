@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     public bool sliding = false;
     public float slidingTime = 0;
     public float maxSlidingTime = 1.5f;
+    public GameObject minimapBorder;
 
     [Header("SoundEffects")]
 
@@ -263,6 +264,11 @@ public class PlayerController : MonoBehaviour
         }
 
         arms.rotation = Quaternion.Euler(0, 0, rotation);
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            minimapBorder.SetActive(!minimapBorder.activeSelf);
+        }
     }
 
     private void LateUpdate()
