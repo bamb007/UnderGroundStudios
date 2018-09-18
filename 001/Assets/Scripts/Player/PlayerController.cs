@@ -152,7 +152,8 @@ public class PlayerController : MonoBehaviour
 
             anim.SetBool("isSliding", true);
 
-            gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
+            gameObject.GetComponent<CircleCollider2D>().radius = 8.777315f;
+            gameObject.GetComponent<CircleCollider2D>().offset = new Vector2(0, -8.837696f);
 
             sliding = true;
         }
@@ -167,7 +168,8 @@ public class PlayerController : MonoBehaviour
 
                 anim.SetBool("isSliding", false);
 
-                gameObject.GetComponent<CapsuleCollider2D>().enabled = true;
+                gameObject.GetComponent<CircleCollider2D>().radius = 17.615f;
+                gameObject.GetComponent<CircleCollider2D>().offset = new Vector2(0, 0);
             }
         }
 
