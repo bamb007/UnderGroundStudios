@@ -31,6 +31,11 @@ public class PlayerController : MonoBehaviour
     public bool sliding = false;
     public float slidingTime = 0;
     public float maxSlidingTime = 1.5f;
+    public GameObject minimapBorder;
+    private bool axisInUse;
+    public Transform target;
+    private bool mouseMode;
+    private Vector3 mousePos;
 
     [Header("SoundEffects")]
 
@@ -90,14 +95,14 @@ public class PlayerController : MonoBehaviour
 
         #region Movement       
 
-        bool left = Input.GetKey(KeyCode.A);
-        bool right = Input.GetKey(KeyCode.D);
+        bool left = Input.GetAxisRaw("Horizontal") < 0;
+        bool right = Input.GetAxisRaw("Horizontal") > 0;
 
-        bool leftDown = Input.GetKeyDown(KeyCode.A);
-        bool rightDown = Input.GetKeyDown(KeyCode.D);
+        bool leftDown = Input.GetAxisRaw("Horizontal") < 0 && !axisInUse;
+        bool rightDown = Input.GetAxisRaw("Horizontal") > 0 && !axisInUse;
 
-        bool leftUp = Input.GetKeyUp(KeyCode.A);
-        bool rightUp = Input.GetKeyUp(KeyCode.D);
+        bool leftUp = Input.GetAxisRaw("Horizontal") == 0 && axisInUse;
+        bool rightUp = Input.GetAxisRaw("Horizontal") == 0 && axisInUse;
 
         if (leftDown || rightDown)
         {
@@ -113,6 +118,8 @@ public class PlayerController : MonoBehaviour
             {
                 anim.SetInteger("direction", 1);
             }
+
+            axisInUse = true;
         }
         else if (leftUp || rightUp)
         {
@@ -131,6 +138,8 @@ public class PlayerController : MonoBehaviour
                     anim.SetInteger("direction", 1);
                 }
             }
+
+            axisInUse = false;
         }
 
         // Movement
@@ -152,7 +161,8 @@ public class PlayerController : MonoBehaviour
 
             anim.SetBool("isSliding", true);
 
-            gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
+            gameObject.GetComponent<CircleCollider2D>().radius = 8.777315f;
+            gameObject.GetComponent<CircleCollider2D>().offset = new Vector2(0, -8.837696f);
 
             sliding = true;
         }
@@ -167,7 +177,8 @@ public class PlayerController : MonoBehaviour
 
                 anim.SetBool("isSliding", false);
 
-                gameObject.GetComponent<CapsuleCollider2D>().enabled = true;
+                gameObject.GetComponent<CircleCollider2D>().radius = 17.615f;
+                gameObject.GetComponent<CircleCollider2D>().offset = new Vector2(0, 0);
             }
         }
 
@@ -177,13 +188,13 @@ public class PlayerController : MonoBehaviour
             PlayerStats.Instance.currentJump = 0;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && grounded)
+        if (Input.GetButtonDown("Jump") && grounded)
         {
             Jump();
             anim.SetBool("jumping", true);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && PlayerStats.Instance.currentJump < PlayerStats.Instance.maxJump && !grounded)
+        if (Input.GetButtonDown("Jump") && PlayerStats.Instance.currentJump < PlayerStats.Instance.maxJump && !grounded)
         {
             Jump();
             anim.SetBool("jumping", false);
@@ -210,7 +221,7 @@ public class PlayerController : MonoBehaviour
 
         if (canAttack)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetButtonDown("Fire1"))
             {
                 PrimaryAttack();
                 shoot.enabled = true;
@@ -227,10 +238,47 @@ public class PlayerController : MonoBehaviour
         }
         #endregion
 
-        Vector2 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 origin = arms.position;
+        //Vector2 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (Input.GetAxis("Joystick X") != 0 || Input.GetAxis("Joystick Y") != 0)
+        {
+            mouseMode = false;
+        }
+        else if (Input.mousePosition != mousePos)
+        {
+            mouseMode = true;
+        }
 
-        Vector2 lookDirection = target - origin;
+        if (mouseMode)
+        {
+            Vector3 mouseTarget = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            Vector3 look_Direction = mouseTarget - arms.position;
+            look_Direction.Normalize();
+
+            if (lastDirection == -1)
+            {
+                look_Direction = new Vector3(look_Direction.x * -1, look_Direction.y, 0);
+            }
+
+            target.localPosition = look_Direction * 10 + arms.localPosition;
+        }
+        else
+        {
+            if (Input.GetAxis("Joystick X") != 0 || Input.GetAxis("Joystick Y") != 0)
+            {
+                Vector3 look_Direction = new Vector3(Input.GetAxis("Joystick X"), Input.GetAxis("Joystick Y"), 0);
+                look_Direction.Normalize();
+
+                if (lastDirection == -1)
+                {
+                    look_Direction = new Vector3(look_Direction.x * -1, look_Direction.y, 0);
+                }
+
+                target.localPosition = look_Direction * 10 + arms.localPosition;
+            }
+        }
+
+        Vector2 lookDirection = target.position - arms.position;
         lookDirection.Normalize();
 
         if (lastDirection == -1)
@@ -261,6 +309,11 @@ public class PlayerController : MonoBehaviour
         }
 
         arms.rotation = Quaternion.Euler(0, 0, rotation);
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            minimapBorder.SetActive(!minimapBorder.activeSelf);
+        }
     }
 
     private void LateUpdate()
