@@ -18,6 +18,8 @@ public class DetectEdge : MonoBehaviour
     public Transform groundDetection;
     public Transform frontDetection;
 
+    public bool active;
+
     #endregion
 
     #region Awake / Start / Update / FixedUpdate / LateUpdate
@@ -50,37 +52,13 @@ public class DetectEdge : MonoBehaviour
 	{
 
         #region RayCast
-        transform.Translate(Vector2.right * stats.movementSpeed * Time.deltaTime);
 
-        RaycastHit2D groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, groundDistance);
-        if (groundInfo.collider == false)
+        if (active)
         {
-            if (moveingRight == true)
-            {
-                transform.eulerAngles = new Vector3(0, -180, 0);
-                moveingRight = false;
+            transform.Translate(Vector2.right * stats.movementSpeed * Time.deltaTime);
 
-                if (debugmode)
-                {
-                    Debug.Log("DetectEdge, testEnemy / Ground detected (Right)");
-                }
-            }
-            else
-            {
-                transform.eulerAngles = new Vector3(0, 0, 0);
-                moveingRight = true;
-
-                if (debugmode)
-                {
-                    Debug.Log("DetectEdge, testEnemy / Ground detected (Left)");
-                }
-            }
-        }
-        
-        RaycastHit2D frontInfo = Physics2D.Raycast(frontDetection.position, Vector2.right, frontDistance);
-        if (frontInfo.collider == true)
-        {           
-            if (frontInfo.collider.tag == "Wall")
+            RaycastHit2D groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, groundDistance);
+            if (groundInfo.collider == false)
             {
                 if (moveingRight == true)
                 {
@@ -89,7 +67,7 @@ public class DetectEdge : MonoBehaviour
 
                     if (debugmode)
                     {
-                        Debug.Log("DetectEdge, testEnemy / Front detected (Right)");
+                        Debug.Log("DetectEdge, testEnemy / Ground detected (Right)");
                     }
                 }
                 else
@@ -99,13 +77,40 @@ public class DetectEdge : MonoBehaviour
 
                     if (debugmode)
                     {
-                        Debug.Log("DetectEdge, testEnemy / Front detected (Left)");
+                        Debug.Log("DetectEdge, testEnemy / Ground detected (Left)");
+                    }
+                }
+            }
+
+            RaycastHit2D frontInfo = Physics2D.Raycast(frontDetection.position, Vector2.right, frontDistance);
+            if (frontInfo.collider == true)
+            {
+                if (frontInfo.collider.tag == "Wall")
+                {
+                    if (moveingRight == true)
+                    {
+                        transform.eulerAngles = new Vector3(0, -180, 0);
+                        moveingRight = false;
+
+                        if (debugmode)
+                        {
+                            Debug.Log("DetectEdge, testEnemy / Front detected (Right)");
+                        }
+                    }
+                    else
+                    {
+                        transform.eulerAngles = new Vector3(0, 0, 0);
+                        moveingRight = true;
+
+                        if (debugmode)
+                        {
+                            Debug.Log("DetectEdge, testEnemy / Front detected (Left)");
+                        }
                     }
                 }
             }
         }
         #endregion
-
 
         if (debugmode)
         {

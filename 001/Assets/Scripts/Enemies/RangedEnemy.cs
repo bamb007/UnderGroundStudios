@@ -20,6 +20,8 @@ public class RangedEnemy : MonoBehaviour
 
     private ProjectileStats proStats;
 
+    private DetectEdge edgeDetection;
+
     [Header("Movement")]
 
 
@@ -32,6 +34,7 @@ public class RangedEnemy : MonoBehaviour
     [SerializeField]
     private GameObject target;
     private GameObject targetToShot;
+
     private AIStates aiState;
 
     [SerializeField]
@@ -50,6 +53,8 @@ public class RangedEnemy : MonoBehaviour
         stats = GetComponent<EnemyStats>();
 
         proStats = GetComponent<ProjectileStats>();
+
+        edgeDetection = GetComponent<DetectEdge>();
     }
 
 	// Use this for initialization
@@ -86,24 +91,24 @@ public class RangedEnemy : MonoBehaviour
             target = player;
         }
 
+        if (aiState == AIStates.Attack)
+        {
+            edgeDetection.active = false;
+        }
+        else if (aiState == AIStates.Patrol)
+        {
+            edgeDetection.active = true;
+        }
+        
         if (Vector2.Distance(target.transform.position, transform.position) <= saveRange)
         {
-            if (target.transform.position.x - transform.position.x < 0)
-            {
-                transform.position += new Vector3(1, 0, 0);
-            }
-            else
-            {
-                transform.position += new Vector3(-1, 0, 0);
-            }
-        }
 
-        if (Vector3.Distance(target.transform.position, transform.position) <= detectionRange && aiState == AIStates.Patrol)
+        }
+        else if (Vector3.Distance(target.transform.position, transform.position) <= detectionRange && aiState == AIStates.Patrol)
         {
             aiState = AIStates.Attack;
         }
-
-        if (Vector3.Distance(target.transform.position, transform.position) <= attackRange && aiState == AIStates.Attack)
+        else if (Vector3.Distance(target.transform.position, transform.position) <= attackRange && aiState == AIStates.Attack)
         {
             if (attackDelay <= 0)
             {
@@ -114,6 +119,10 @@ public class RangedEnemy : MonoBehaviour
             {
                 attackDelay -= Time.deltaTime;
             }
+        }
+        else
+        {
+            aiState = AIStates.Patrol;
         }
     }
 	#endregion
