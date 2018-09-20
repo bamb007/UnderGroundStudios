@@ -22,6 +22,10 @@ public class RangedEnemy : MonoBehaviour
 
     private DetectEdge edgeDetection;
 
+    private TeleportBack teleBack;
+
+    public bool bossMode;
+
     [Header("Movement")]
 
 
@@ -42,6 +46,9 @@ public class RangedEnemy : MonoBehaviour
     [SerializeField]
     private float attackPerSec;
 
+    [SerializeField]
+    private float teleportBack;
+
 
     #endregion
 
@@ -55,6 +62,8 @@ public class RangedEnemy : MonoBehaviour
         proStats = GetComponent<ProjectileStats>();
 
         edgeDetection = GetComponent<DetectEdge>();
+
+        teleBack = GetComponent<TeleportBack>();
     }
 
 	// Use this for initialization
@@ -91,18 +100,36 @@ public class RangedEnemy : MonoBehaviour
             target = player;
         }
 
-        if (aiState == AIStates.Attack)
+        if (edgeDetection == null)
         {
-            edgeDetection.active = false;
+            edgeDetection = GetComponent<DetectEdge>();         
         }
-        else if (aiState == AIStates.Patrol)
+
+        if (teleBack == null)
         {
-            edgeDetection.active = true;
+            teleBack = GetComponent<TeleportBack>();
         }
+
+        if (!bossMode)
+        {
+            if (aiState == AIStates.Attack)
+            {
+                edgeDetection.active = false;
+            }
+            else if (aiState == AIStates.Patrol)
+            {
+                edgeDetection.active = true;
+            }
+        }
+
+
         
         if (Vector2.Distance(target.transform.position, transform.position) <= saveRange)
         {
+            if (bossMode)
+            {
 
+            }
         }
         else if (Vector3.Distance(target.transform.position, transform.position) <= detectionRange && aiState == AIStates.Patrol)
         {
@@ -118,6 +145,31 @@ public class RangedEnemy : MonoBehaviour
             else if (attackDelay > 0)
             {
                 attackDelay -= Time.deltaTime;
+            }
+
+            if (bossMode)
+            {
+                if (teleportBack <= 0)
+                {
+                    TeleportBack();
+                    teleportBack += Random.Range(2, 7);
+                }
+                else if (teleportBack > 0)
+                {
+                    teleportBack -= Time.deltaTime;
+                }
+            }
+
+            if (bossMode && Vector2.Distance(target.transform.position, transform.position) <= saveRange)
+            {
+                if (player.transform.position.x > transform.position.x)
+                {
+                    transform.Translate(new Vector3(-0.1f, 0, 0));
+                }
+                else if (player.transform.position.x < transform.position.x)
+                {
+                    transform.Translate(new Vector3(0.1f, 0, 0));
+                }
             }
         }
         else
@@ -139,6 +191,11 @@ public class RangedEnemy : MonoBehaviour
         clone.enemyProjectile = true;
         clone.canCollideWithWall = proStats.canCollideWithWall;
         clone.ground = proStats.ground;
+    }
+
+    private void TeleportBack()
+    {
+        teleBack.active = true;
     }
 
 	#endregion

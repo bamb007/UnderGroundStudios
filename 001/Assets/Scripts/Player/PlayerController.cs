@@ -389,6 +389,7 @@ public class PlayerController : MonoBehaviour
         clone.destroyTime = projectile.destroyTime;
         clone.damage = PlayerStats.Instance.damage;
         clone.playerProjectile = projectile.playerProjectile;
+        clone.canCollideWithWall = projectile.canCollideWithWall;
     }
 
     public void SecondaryAttack()

@@ -67,7 +67,7 @@ public class Projectile : MonoBehaviour
     {
         if (canCollideWithWall)
         {
-            if (other.IsTouchingLayers(ground))
+            if (other.gameObject.CompareTag("Wall"))
             {
                 Destroy(gameObject);
             }

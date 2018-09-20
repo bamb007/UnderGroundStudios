@@ -54,8 +54,14 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: TestBackground
+    uniqueID: 197609197
+    locked: 0
   - name: Background
     uniqueID: 3055064323
+    locked: 0
+  - name: World
+    uniqueID: 348372879
     locked: 0
   - name: Pickup
     uniqueID: 639056245
@@ -74,4 +80,7 @@ TagManager:
     locked: 0
   - name: Particle
     uniqueID: 192797247
+    locked: 0
+  - name: Projectile
+    uniqueID: 1491414529
     locked: 0
