@@ -215,7 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36c2cd813647faf4482dc19e9b5c68b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugmode: 1
+  debugmode: 0
   groundDistance: 0.5
   frontDistance: 0.2
   groundDetection: {fileID: 4480468879320284}
