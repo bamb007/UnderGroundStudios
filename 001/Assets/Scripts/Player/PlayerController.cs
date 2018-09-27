@@ -379,6 +379,7 @@ public class PlayerController : MonoBehaviour
     {
         PlayerStats.Instance.currentJump += 1;
 
+        rb2d.velocity = new Vector2(rb2d.velocity.x, 0);
         rb2d.AddForce(Vector2.up * PlayerStats.Instance.jumpHeight);
     }
 
