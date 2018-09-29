@@ -68,7 +68,7 @@ public class DetectionRanges : MonoBehaviour
         }
         else if (Vector3.Distance(player.transform.position, transform.position) > detectionRange && detectionRangeActive == true)
         {
-
+            detectionRangeActive = false;
         }
 
         if (Vector3.Distance(player.transform.position, transform.position) <= attackRange && attackRangeActive == false)
