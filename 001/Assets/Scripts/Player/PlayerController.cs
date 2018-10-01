@@ -285,7 +285,8 @@ public class PlayerController : MonoBehaviour
         {
             lookDirection *= -1;
         }
-
+        
+        //Arm rotation clamp
         float rotation = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
 
         if (direction != 0)
